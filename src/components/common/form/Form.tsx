@@ -10,12 +10,12 @@ import {
 
 import './Form.css';
 
-interface IBoolean{
-  type: 'SignUp'| 'LogIn';
+interface IFormInput{
+  type: 'SignUp'| 'LogIn' ;
   title?: string;
 }
 
-export const Form: React.FC<IBoolean> = (props: IBoolean) =>{
+export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
   const { type, title }= props;
   return(
     <div className='flex justify-center'>
@@ -57,7 +57,7 @@ export const Form: React.FC<IBoolean> = (props: IBoolean) =>{
             type ='password' 
             placeholder = 'password' 
             classname = 'py-2'
-            icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}></Input>
+            icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}/>
         </div>
         
         {type === 'SignUp' && 
