@@ -7,6 +7,10 @@ export const SITE_PAGES = {
     label: 'view a host',
     path: '/view_a_host',
   },
+  VIEW_BLANK_PAGE: {
+    label:'view blank page',
+    path: '/view_blank_page'
+  },
   LIST_OF_ROOMS:{
     path: '/'
   },

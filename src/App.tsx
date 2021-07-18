@@ -8,6 +8,9 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path ={SITE_PAGES.VIEW_BLANK_PAGE.path}>
+          <Pages.ViewBlankPage/>
+        </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost/>
         </Route>
