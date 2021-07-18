@@ -10,12 +10,13 @@ import {
 
 import './Form.css';
 
-interface IBoolean{
+
+interface IFormInput{
   type: 'SignUp'| 'LogIn';
   title?: string;
 }
 
-export const Form: React.FC<IBoolean> = (props: IBoolean) =>{
+export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
   const { type, title }= props;
   return(
     <div className='flex justify-center'>
@@ -47,9 +48,10 @@ export const Form: React.FC<IBoolean> = (props: IBoolean) =>{
               border='full' 
               type ='text' 
               placeholder = 'phone number'
-              classname = 'py-2' 
+              classname = 'py-2'
               icon={{ icon: <Icon icon={phoneOutline} />, position: 'right' }}/> 
-          </div>}     
+          </div>
+        }   
 
         <div className='py-2 h-full'> 
           <Input 
@@ -59,7 +61,7 @@ export const Form: React.FC<IBoolean> = (props: IBoolean) =>{
             classname = 'py-2'
             icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}></Input>
         </div>
-        
+
         {type === 'SignUp' && 
           <div className='py-2 h-full'>  
             <Input 

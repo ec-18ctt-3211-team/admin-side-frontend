@@ -1,0 +1,13 @@
+.infor-component {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pt-4 {
+  padding-top: 1;
+}
+.infor-component > p {
+  padding-bottom: 1rem;
+  font-size: 0.75rem;
+}
