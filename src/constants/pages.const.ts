@@ -3,4 +3,20 @@ export const SITE_PAGES = {
     label: 'home',
     path: '/',
   },
+  VIEW_A_HOST:{
+    label: 'view a host',
+    path: '/view_a_host',
+  },
+  LIST_OF_ROOMS:{
+    path: '/'
+  },
+  USER_PROFILE:{
+    path:'/'
+  },
+  ROOMS_OF_HOST:{
+    path:'/'
+  },
+  BOOKING_HISTORY:{
+    path:'/'
+  },
 };
