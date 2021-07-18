@@ -28,7 +28,7 @@ export default function Navbar(props: Props): JSX.Element {
           </div>
         ) : (
           <Link
-            to={SITE_PAGES.USER_PROFILE.path}
+            to={SITE_PAGES.MAIN.path}
             className={[
               'p-2 flex items-center rounded-3xl',
               'text-brown-600 bg-brown-100',
