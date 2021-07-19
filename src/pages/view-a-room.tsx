@@ -7,11 +7,11 @@ interface IHostID{
   host_id: string;
 }
 
-export default function ViewARoom(host_id: IHostID): JSX.Element{
+export default function ViewARoom(id: IHostID): JSX.Element{
   return(
     <>
       <div className='border-b px-4 py-2'>
-        <p className='font-bold'>ID @{host_id}</p>
+        <p className='font-bold'>ID @{id.host_id}</p>
       </div>
       <div className='py-4'>
         <ImageSlider limit={3} images={ROOMS} />
