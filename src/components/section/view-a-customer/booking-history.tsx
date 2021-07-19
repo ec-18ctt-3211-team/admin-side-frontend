@@ -1,18 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Pagination } from 'components/common';
 import { IBookingTable } from 'interfaces/user.interface';
+import { Link } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
-import './list-of-rooms-table.css';
+import './booking-history.css';
 
-interface IRoom{
-  ID?: string;
-  Name? : string;
-}
-
-interface Props {
-  list_of_rooms: IRoom[];
-  items_per_pages?: number;
-}
 export const OrderStatus = {
   waiting: { label: 'Waiting', color: 'text-gray-400' },
   accepted: { label: 'Accepted', color: 'text-success' },
@@ -20,28 +12,43 @@ export const OrderStatus = {
   denied: { label: 'Denied', color: 'text-error' },
 };
 
-
-export default function HostListofRoom() :JSX.Element{ 
-  const roomlists: IRoom[] =[
-    { ID: '#1', Name: 'LUXURY HOMESTAY' },{},{},{},{},{}
+interface Props {
+  booking_history: IBookingTable[];
+  items_per_pages?: number;
+}
+export default function CustomerBookingTable(): JSX.Element{
+  const bookinghistory: IBookingTable[] = [ { orderID: '#1', roomID: '123', order_status: OrderStatus.waiting },
+    { orderID: '#1', roomID: '123', order_status: OrderStatus.waiting },
+    {
+      orderID: '#1',
+      roomID: '123',
+      order_status: OrderStatus.accepted,
+    },
+    { orderID: '#1', roomID: '123', order_status: OrderStatus.denied },
+    { orderID: '#1', roomID: '123', order_status: OrderStatus.done },
+    { orderID: '#1', roomID: '123', order_status: OrderStatus.denied },
+    {
+      orderID: '#1',
+      roomID: '123',
+      order_status: OrderStatus.accepted,
+    },
   ];
-  const [currentPage, setCurrentPage] = useState(0);
   return(
-    <div className='host-list'>
+    <div>
       <div className='vl'></div>
       <div className='list-box'>
-        <div className="uppercase font-bold text-xl px-6 pt-2">
-          List of Rooms
+        <div className="uppercase font-bold text-xl px-6 pt-4">
+          Booking history
         </div>
         <div>
-          <ListOfRoomsTable list_of_rooms={roomlists}/>
+          <BookingTable booking_history={bookinghistory}/>
         </div>
       </div>
     </div>
   );
 }
 
-function ListOfRoomsTable(props: Props) {
+function BookingTable(props: Props) {
   const { items_per_pages = 6 } = props;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState<number>(10);
@@ -50,21 +57,24 @@ function ListOfRoomsTable(props: Props) {
   function renderTable() {
     return (
       <tbody className="text-center">
-        {props.list_of_rooms.map((item, index) => {
+        {props.booking_history.map((item, index) => {
           if (index > items_per_pages - 1) return;
           return (
             <tr
-              key={item.ID}
+              key={item.orderID}
               className={
                 (index > 0 && index % (items_per_pages - 1) === 0) ||
-                index === props.list_of_rooms.length - 1
+                index === props.booking_history.length - 1
                   ? ''
                   : 'border-b'
               }
             >
-              <td className="border-r py-6">{item.ID}</td>
-              <td className="py-6">
-                {item.Name}
+              <td className="border-r py-6">{item.orderID}</td>
+              <td className="border-r py-6">
+                <Link to={SITE_PAGES.BOOKING_HISTORY.path}>{item.roomID}</Link>
+              </td>
+              <td className={['py-6', item.order_status.color].join(' ')}>
+                {item.order_status.label}
               </td>
             </tr>
           );
@@ -83,7 +93,8 @@ function ListOfRoomsTable(props: Props) {
         <thead>
           <tr className="border-b uppercase">
             <th className="border-r py-6">ID</th>
-            <th className="py-6">Name</th>
+            <th className="border-r py-6">Booking Information</th>
+            <th className="py-6">Status</th>
           </tr>
         </thead>
         {render}

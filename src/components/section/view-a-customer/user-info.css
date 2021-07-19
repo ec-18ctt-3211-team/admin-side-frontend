@@ -1,5 +1,5 @@
-.login-component {
-  width: 25%;
+.infor-component {
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,13 +7,7 @@
 .pt-4 {
   padding-top: 1;
 }
-.login-component > p {
+.infor-component > p {
   padding-bottom: 1rem;
   font-size: 0.75rem;
-}
-
-#p-link {
-  text-color: #000000;
-  opacity: 0.5;
-  text-decoration: underline;
 }

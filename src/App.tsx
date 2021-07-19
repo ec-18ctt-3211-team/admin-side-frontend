@@ -8,11 +8,21 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path ={SITE_PAGES.VIEW_BLANK_PAGE.path}>
-          <Pages.ViewBlankPage/>
+        <Route exact path = "/">
+          <Pages.ViewAHost/>
+        </Route>
+        <Route path ={SITE_PAGES.VIEW_A_ROOM.path}>
+          <Pages.ViewARoom 
+            host_id='123456'/>
         </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost/>
+        </Route>
+        <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
+          <Pages.ViewACustomer id ='123456'/>
+        </Route>
+        <Route path ={SITE_PAGES.VIEW_BLANK_PAGE.path}>
+          <Pages.ViewBlankPage/>
         </Route>
         <Route path="*">
           <div>ERROR!!!</div>
