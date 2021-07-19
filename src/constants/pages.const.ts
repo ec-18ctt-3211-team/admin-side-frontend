@@ -5,7 +5,7 @@ export const SITE_PAGES = {
   },
   VIEW_A_HOST:{
     label: 'view a host',
-    path: '/view_a_host',
+    path: '/view-a-host',
   },
   LIST_OF_ROOMS:{
     path: '/'
