@@ -4,9 +4,11 @@
 
 Frontend repository
 
+Admin side
+
 Authors: Ly Ngoc Nhi, Truong Cong Anh
 
-Deploy: 
+Deploy: https://distracted-varahamihira-e9d7ab.netlify.app
 
 A homestay booking website
 

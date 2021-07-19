@@ -10,8 +10,9 @@ import {
 
 import './Form.css';
 
+
 interface IFormInput{
-  type: 'SignUp'| 'LogIn' ;
+  type: 'SignUp'| 'LogIn';
   title?: string;
 }
 
@@ -47,9 +48,10 @@ export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
               border='full' 
               type ='text' 
               placeholder = 'phone number'
-              classname = 'py-2' 
+              classname = 'py-2'
               icon={{ icon: <Icon icon={phoneOutline} />, position: 'right' }}/> 
-          </div>}     
+          </div>
+        }   
 
         <div className='py-2 h-full'> 
           <Input 
@@ -59,7 +61,7 @@ export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
             classname = 'py-2'
             icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}/>
         </div>
-        
+
         {type === 'SignUp' && 
           <div className='py-2 h-full'>  
             <Input 
