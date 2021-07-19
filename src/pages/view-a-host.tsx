@@ -1,12 +1,11 @@
-import { Form } from 'components/common/form/Form';
 import { HostInfo } from 'components/section/view-a-host/host-info';
 import HostListofRoom from 'components/section/view-a-host/list-of-rooms-table';
 import { useState } from 'react';
 
 export default function ViewACustomer(): JSX.Element {
   const [hostInfo, setHostInfo] = useState({
-    userID: '1234567',
-    username: 'nhily',
+    hostID: '1234567',
+    hostname: 'nhily',
     phone_number: '0123456789',
     email: 'nhily@gmail.com',
     citizen_id: '0123456789',
@@ -14,7 +13,7 @@ export default function ViewACustomer(): JSX.Element {
   return(
     <>
       <div className='border-b px-4 py-2'>
-        <p className='font-bold'>ID {}</p>
+        <p className='font-bold'>ID @{hostInfo.hostID}</p>
       </div>
       <div className = "flex flex-row w-full">
         <div className='w-1\/3 lg:w-2/5'>

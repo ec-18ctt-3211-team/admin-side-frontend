@@ -8,6 +8,9 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path = "/">
+          <Pages.ViewAHost/>
+        </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost/>
         </Route>

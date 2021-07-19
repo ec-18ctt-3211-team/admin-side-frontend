@@ -10,8 +10,8 @@ import {
 import './host-info.css';
 
 interface IHostInfo{
-  userID: string;
-  username: string;
+  hostID: string;
+  hostname: string;
   phone_number: string;
   email: string;
   citizen_id: string;
@@ -27,8 +27,8 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
   return(
     <div className='flex justify-center'>
       <div className='infor-component'>
-        <h1 className = 'text-4xl font-bold py-4'>{host?.username}</h1>
-        <p> @{host?.userID}</p>
+        <h1 className = 'text-4xl font-bold py-4'>{host?.hostname}</h1>
+        <p> @{host?.hostID}</p>
         <div className= 'py-2'>
           <Input 
             border='full' 
@@ -45,7 +45,7 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
             type ='text' 
             placeholder= 'full name'
             classname = 'py-2'
-            value = {host?.username}
+            value = {host?.hostname}
             icon={{ icon: <Icon icon={userSolid} />, position: 'right' }}/> 
         </div>
     

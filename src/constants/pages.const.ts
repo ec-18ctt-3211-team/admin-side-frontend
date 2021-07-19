@@ -7,6 +7,7 @@ export const SITE_PAGES = {
     label: 'view a host',
     path: '/view_a_host',
   },
+  /*
   LIST_OF_ROOMS:{
     path: '/'
   },
@@ -18,5 +19,5 @@ export const SITE_PAGES = {
   },
   BOOKING_HISTORY:{
     path:'/'
-  },
+  },*/
 };
