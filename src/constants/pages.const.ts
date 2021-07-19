@@ -3,6 +3,11 @@ export const SITE_PAGES = {
     label: 'home',
     path: '/',
   },
+  VIEW_A_ROOM: {
+    label:'view a room',
+    path: '/view_a_room'
+  },
+  
   VIEW_A_HOST:{
     label: 'view a host',
     path: '/view_a_host',

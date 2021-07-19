@@ -11,6 +11,10 @@ function App() {
         <Route exact path = "/">
           <Pages.ViewAHost/>
         </Route>
+        <Route path ={SITE_PAGES.VIEW_A_ROOM.path}>
+          <Pages.ViewARoom 
+            host_id='123456'/>
+        </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost/>
         </Route>
