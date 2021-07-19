@@ -59,7 +59,7 @@ export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
             type ='password' 
             placeholder = 'password' 
             classname = 'py-2'
-            icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}></Input>
+            icon={{ icon: <Icon icon={passwordOutline} />, position: 'right' }}/>
         </div>
 
         {type === 'SignUp' && 

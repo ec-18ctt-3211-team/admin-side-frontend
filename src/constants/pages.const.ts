@@ -7,10 +7,13 @@ export const SITE_PAGES = {
     label:'view a room',
     path: '/view_a_room'
   },
-  
   VIEW_A_HOST:{
     label: 'view a host',
     path: '/view_a_host',
+  },
+  VIEW_A_CUSTOMER: {
+    label:'view a customer',
+    path:'/view_a_customer',
   },
   /*
   LIST_OF_ROOMS:{
@@ -19,10 +22,13 @@ export const SITE_PAGES = {
   USER_PROFILE:{
     path:'/'
   },
-  ROOMS_OF_HOST:{
-    path:'/'
-  },
   BOOKING_HISTORY:{
     path:'/'
+  },
+  ROOMS_OF_HOST:{
+    path:'/'
   },*/
+  BOOKING_HISTORY:{
+    path:'/'
+  },
 };
