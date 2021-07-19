@@ -11,6 +11,10 @@ export const SITE_PAGES = {
     label: 'view a host',
     path: '/view_a_host',
   },
+  VIEW_BLANK_PAGE: {
+    label:'view blank page',
+    path: '/view_blank_page'
+  },
   VIEW_A_CUSTOMER: {
     label:'view a customer',
     path:'/view_a_customer',

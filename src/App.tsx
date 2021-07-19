@@ -21,6 +21,9 @@ function App() {
         <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewACustomer id ='123456'/>
         </Route>
+        <Route path ={SITE_PAGES.VIEW_BLANK_PAGE.path}>
+          <Pages.ViewBlankPage/>
+        </Route>
         <Route path="*">
           <div>ERROR!!!</div>
         </Route>
