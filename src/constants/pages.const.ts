@@ -25,5 +25,5 @@ export const SITE_PAGES = {
 
   BOOKING_HISTORY:{
     path:'/'
-  },
+  },*/
 };
