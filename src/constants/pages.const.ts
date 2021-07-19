@@ -27,8 +27,8 @@ export const SITE_PAGES = {
   },
   ROOMS_OF_HOST:{
     path:'/'
-  },
+  },*/
   BOOKING_HISTORY:{
     path:'/'
-  },*/
+  },
 };
