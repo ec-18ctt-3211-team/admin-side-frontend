@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Pagination } from 'components/common';
 import { IBookingTable } from 'interfaces/user.interface';
-import { Link } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 import './list-of-rooms-table.css';
 
@@ -65,7 +64,7 @@ function ListOfRoomsTable(props: Props) {
             >
               <td className="border-r py-6">{item.ID}</td>
               <td className="py-6">
-                <Link to={SITE_PAGES.BOOKING_HISTORY.path}>{item.Name}</Link>
+                {item.Name}
               </td>
             </tr>
           );

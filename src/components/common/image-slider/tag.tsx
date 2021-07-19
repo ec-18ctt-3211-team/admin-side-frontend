@@ -17,9 +17,9 @@ const Wrapper = (props: {
   return (
     <div className="px-2 relative" style={{ width: `${props.width}%` }}>
       {props.isLink ? (
-        <Link className="cursor-pointer" to={SITE_PAGES.LIST_OF_ROOMS.path}>
+        {/*<Link className="cursor-pointer" to={SITE_PAGES.LIST_OF_ROOMS.path}>
           {props.children}
-        </Link>
+      </Link>*/}
       ) : (
         <div>{props.children}</div>
       )}
