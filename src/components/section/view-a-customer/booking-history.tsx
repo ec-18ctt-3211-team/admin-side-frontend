@@ -16,33 +16,31 @@ interface Props {
   booking_history: IBookingTable[];
   items_per_pages?: number;
 }
-export default function CustomerBookingTable(): JSX.Element{
-  const bookinghistory: IBookingTable[] = [ { orderID: '#1', roomID: '123', order_status: OrderStatus.waiting },
+export default function CustomerBookingTable(): JSX.Element {
+  const bookinghistory: IBookingTable[] = [
+    { orderID: '#0', roomID: '123', order_status: OrderStatus.waiting },
     { orderID: '#1', roomID: '123', order_status: OrderStatus.waiting },
     {
-      orderID: '#1',
+      orderID: '#2',
       roomID: '123',
       order_status: OrderStatus.accepted,
     },
-    { orderID: '#1', roomID: '123', order_status: OrderStatus.denied },
-    { orderID: '#1', roomID: '123', order_status: OrderStatus.done },
-    { orderID: '#1', roomID: '123', order_status: OrderStatus.denied },
+    { orderID: '#3', roomID: '123', order_status: OrderStatus.denied },
+    { orderID: '#4', roomID: '123', order_status: OrderStatus.done },
+    { orderID: '#5', roomID: '123', order_status: OrderStatus.denied },
     {
-      orderID: '#1',
+      orderID: '#6',
       roomID: '123',
       order_status: OrderStatus.accepted,
     },
   ];
-  return(
-    <div>
-      <div className='vl'></div>
-      <div className='list-box'>
-        <div className="uppercase font-bold text-xl px-6 pt-4">
-          Booking history
-        </div>
-        <div>
-          <BookingTable booking_history={bookinghistory}/>
-        </div>
+  return (
+    <div className="list-box">
+      <div className="uppercase font-bold text-xl px-6 pt-4">
+        Booking history
+      </div>
+      <div>
+        <BookingTable booking_history={bookinghistory} />
       </div>
     </div>
   );
