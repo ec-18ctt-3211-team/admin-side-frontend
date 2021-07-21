@@ -19,7 +19,9 @@ function App() {
           <Pages.ViewARoom host_id="123456" />
         </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
-          <Pages.ViewAHost />
+          <Pages.ViewAHost
+            isAuthorized={isAuthorized}
+            setAuthorized={setAuthorized} />
         </Route>
         <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewACustomer
@@ -29,7 +31,9 @@ function App() {
           />
         </Route>
         <Route path={SITE_PAGES.VIEW_BLANK_PAGE.path}>
-          <Pages.ViewBlankPage />
+          <Pages.ViewBlankPage
+            isAuthorized={isAuthorized}
+            setAuthorized={setAuthorized} />
         </Route>
         <Route path="*">
           <div>ERROR!!!</div>

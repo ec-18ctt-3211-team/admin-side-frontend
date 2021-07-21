@@ -19,17 +19,18 @@ export default function ViewACustomer(props: Props): JSX.Element {
   return (
     <Layout
       isAuthorized={props.isAuthorized}
-      setAuthorized={props.setAuthorized}
-    >
-      <div className="border-b px-4 py-2">
-        <p className="font-bold text-lg">ID @{props.id}</p>
-      </div>
-      <div className="flex w-full">
-        <div className="w-1\/3 lg:w-2/5">
-          <UserInfo user={userInfo}></UserInfo>
+      setAuthorized={props.setAuthorized}>
+      <div className = "bg-white rounded-lg">
+        <div className="border-b px-4 py-2">
+          <p className="font-bold text-lg">ID @{props.id}</p>
         </div>
-        <div className="w-2\/5 lg:w-3/5">
-          <CustomerBookingTable />
+        <div className="flex w-full">
+          <div className="w-1\/3 lg:w-2/5">
+            <UserInfo user={userInfo}></UserInfo>
+          </div>
+          <div className="w-2\/5 lg:w-3/5">
+            <CustomerBookingTable />
+          </div>
         </div>
       </div>
     </Layout>
