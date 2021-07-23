@@ -1,7 +1,10 @@
 import { UserInfo } from 'components/section/view-a-customer/user-info';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CustomerBookingTable from 'components/section/view-a-customer/booking-history';
 import { Layout } from 'components/common';
+import { GET } from 'utils/fetcher.utils';
+import { ENDPOINT_URL } from 'constants/api.const';
+import { IUserInfo } from 'interfaces/user.interface';
 
 interface Props {
   id?: string;
@@ -10,12 +13,38 @@ interface Props {
 }
 
 export default function ViewACustomer(props: Props): JSX.Element {
-  const [userInfo, setUserInfo] = useState({
-    userID: '1234567',
-    username: 'nhily',
-    phone_number: '0123456789',
-    email: 'nhily@gmail.com',
-  });
+  let found = false;
+  const [userInfo, setUserInfo] = useState<IUserInfo>();
+  async function getData(){
+    const response = await GET(
+      ENDPOINT_URL.GET.getCustomerByID(),
+    );
+
+    if(response.status == 200){
+      let res: any;
+      const data = response.data.customers; 
+      data.map((data: any) =>{
+        if(data._id === '60e954bfa6e91a3cf4f5088b' ){
+          res = data;
+          console.log('Result:'+ data);
+          found = true;
+        }
+      });
+     
+      if(found){
+        setUserInfo({ ...userInfo,
+          userID: res._id,
+          username: res.name,
+          phone_number: res.phone,
+          email: res.email,
+        });
+      }
+    }
+  }
+
+  useEffect(()=>{
+    getData();
+  }, [userInfo]);
   return (
     <Layout
       isAuthorized={props.isAuthorized}

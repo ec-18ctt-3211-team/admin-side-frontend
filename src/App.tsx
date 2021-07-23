@@ -9,8 +9,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Pages.ViewACustomer
-            id="123456"
+          <Pages.ViewBlankPage
             isAuthorized={isAuthorized}
             setAuthorized={setAuthorized}
           />

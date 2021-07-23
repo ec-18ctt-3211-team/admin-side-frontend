@@ -43,7 +43,7 @@ export default function ImageSlider(props: Props): JSX.Element {
           if (index < slider.start || index >= slider.end) return;
           return (
             <ImageTag
-              data={{ src: image.src, name: image.name }}
+              data={image}
               width={100 / props.limit}
               isLink={props.isLink}
               key={index}

@@ -31,7 +31,7 @@ export default function ImageTag(props: Props): JSX.Element {
   return (
     <Wrapper width={props.width} isLink={props.isLink}>
       <img
-        src={props.data.src}
+        src={props.data.path}
         className={[
           'h-80 w-full rounded-xl shadow bg-brown-200 object-cover',
           props.data.href
@@ -40,7 +40,7 @@ export default function ImageTag(props: Props): JSX.Element {
         ].join(' ')}
       />
       <span className="absolute bottom-4 left-5 text-l text-white font-bold uppercase drop-shadow-xl">
-        {props.data.name}
+        {props.data.title}
       </span>
     </Wrapper>
   );
