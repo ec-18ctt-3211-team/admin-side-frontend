@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pagination } from 'components/common';
 import { IBookingTable } from 'interfaces/user.interface';
 import { SITE_PAGES } from 'constants/pages.const';
-import './list-of-rooms-table.css';
+
 
 interface IRoom{
   ID?: string;
@@ -27,9 +27,8 @@ export default function HostListofRoom() :JSX.Element{
   ];
   const [currentPage, setCurrentPage] = useState(0);
   return(
-    <div className='host-list'>
-      <div className='vl'></div>
-      <div className='list-box'>
+    <div className='h-full'>
+      <div className='h-full'>
         <div className="uppercase font-bold text-xl px-6 pt-2">
           List of Rooms
         </div>

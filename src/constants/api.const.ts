@@ -1,8 +1,8 @@
 export const ENDPOINT_URL = {
   GET: {
     getRoomsByID: (id: string) => `/rooms/${id}`,
-    getHostsByID: () => '/customer',
-    getCustomerByID: () => '/customer',
+    getHostsByID: (id: string) => `/customer/${id}`,
+    getCustomerByID: (id: string) => `/customer/${id}`,
   },
   POST: {},
 };

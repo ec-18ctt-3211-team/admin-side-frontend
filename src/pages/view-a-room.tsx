@@ -7,6 +7,7 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { IRoomDetail } from 'interfaces/room.interface';
 import { IHostDetail } from 'interfaces/host.interface';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface IHostID{
   host_id: string;
@@ -17,21 +18,26 @@ interface Props {
 }
 
 export default function ViewARoom(id: IHostID , props: Props): JSX.Element{
+  const location = useLocation();
+  const keyword = location.search.substring(1);
+  console.log('dasd: '+ keyword);
+
   const [roomDetails, setRoomDetails] = useState<IRoomDetail>();
   const [hostDetails, setHostDetails] = useState<IHostDetail>();
 
   async function fetchRoom() {
-    const response = await GET(ENDPOINT_URL.GET.getRoomsByID('60f2c344fbc511c82360779c'));
-    setRoomDetails(response.data.room);
-    setHostDetails({
-      _id: response.data.room.host_id,
-      host_name: 'Luxury house',
-    });
+    const response = await GET(ENDPOINT_URL.GET.getRoomsByID(keyword));
+    if(response.status == 200){
+      setRoomDetails(response.data.room);
+      setHostDetails({
+        _id: response.data.room.host_id,
+        host_name: 'Luxury house',
+      });
+    }
   }
   useEffect(() => {
     fetchRoom();
   }, []);
-  console.log(roomDetails?.photos);
 
   return(
     <Layout

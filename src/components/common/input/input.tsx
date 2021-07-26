@@ -9,6 +9,7 @@ interface Props {
   label?: { value: string; position: positionType };
   icon?: { icon: React.ReactNode; position: positionType };
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 export default function Input(props: Props): JSX.Element {
@@ -49,6 +50,7 @@ export default function Input(props: Props): JSX.Element {
             className="w-full px-4 focus:outline-none"
             defaultValue={props.value?.toString()}
             onChange={props.onChange}
+            onKeyDown = {props.onKeyDown}
           />
 
           {/* right icon  */}

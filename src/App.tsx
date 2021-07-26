@@ -12,8 +12,28 @@ function App() {
           <Pages.ViewBlankPage
             isAuthorized={isAuthorized}
             setAuthorized={setAuthorized}
+            path={SITE_PAGES.VIEW_A_ROOM.path}
           />
         </Route>
+        <Route exact path={SITE_PAGES.VIEW_A_ROOM.path}>
+          <Pages.ViewBlankPage
+            isAuthorized={isAuthorized}
+            setAuthorized={setAuthorized}
+            path={SITE_PAGES.VIEW_A_ROOM.path}/>
+        </Route>
+        <Route exact path={SITE_PAGES.VIEW_A_HOST.path}>
+          <Pages.ViewBlankPage 
+            isAuthorized={isAuthorized}
+            setAuthorized={setAuthorized}
+            path={SITE_PAGES.VIEW_A_HOST.path}/>
+        </Route>
+        <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
+          <Pages.ViewBlankPage 
+            isAuthorized={isAuthorized}
+            setAuthorized={setAuthorized}
+            path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
+        </Route>
+        
         <Route path={SITE_PAGES.VIEW_A_ROOM.path}>
           <Pages.ViewARoom host_id="123456" />
         </Route>
@@ -24,7 +44,6 @@ function App() {
         </Route>
         <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewACustomer
-            id="123456"
             isAuthorized={isAuthorized}
             setAuthorized={setAuthorized}
           />
@@ -32,7 +51,8 @@ function App() {
         <Route path={SITE_PAGES.VIEW_BLANK_PAGE.path}>
           <Pages.ViewBlankPage
             isAuthorized={isAuthorized}
-            setAuthorized={setAuthorized} />
+            setAuthorized={setAuthorized}
+            path="/" />
         </Route>
         <Route path="*">
           <div>ERROR!!!</div>
