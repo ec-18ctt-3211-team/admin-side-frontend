@@ -47,12 +47,12 @@ export default function ViewAHost(props: Props): JSX.Element {
   }, [hostInfo]);
 
   return(
-    <div className='h-full flex'>
-      <Layout
-        isAuthorized={props.isAuthorized}
-        setAuthorized={props.setAuthorized}>
-        {found ? 
-          (<div className = 'bg-white rounded-lg'>
+    <>
+      {found ?
+        (<Layout
+          isAuthorized={props.isAuthorized}
+          setAuthorized={props.setAuthorized}>
+          <div className = 'bg-white rounded-lg'>
             <div className='border-b px-4 py-2'>
               <p className='font-bold text-lg'>ID @{hostInfo?.hostID}</p>
             </div>
@@ -64,12 +64,17 @@ export default function ViewAHost(props: Props): JSX.Element {
                 <HostListofRoom></HostListofRoom>
               </div>
             </div>
-          </div>) : (
-            <div className = "h-full bg-white rounded-lg">No result</div>
-          )
-        }
-        
-      </Layout>
-    </div>
+          </div>    
+        </Layout>): 
+        (
+          <div className='h-full flex border'>
+            <Layout
+              isAuthorized={props.isAuthorized}
+              setAuthorized={props.setAuthorized}>
+              <div className = "h-full bg-white rounded-lg">No result</div>
+            </Layout>
+          </div>
+        )}    
+    </>
   );
 }
