@@ -7,12 +7,8 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { IUserInfo } from 'interfaces/user.interface';
 import { useLocation } from 'react-router-dom';
 
-interface Props {
-  isAuthorized: boolean;
-  setAuthorized: (isAuthorized: boolean) => void;
-}
 
-export default function ViewACustomer(props: Props): JSX.Element {
+export default function ViewACustomer(): JSX.Element {
   const location = useLocation();
   const keyword = location.search.substring(1);
 
@@ -24,7 +20,7 @@ export default function ViewACustomer(props: Props): JSX.Element {
     );
 
     if(response.status == 200){
-      if(response.data.customer === null) {
+      if(response.data.valid === false) {
         return;
       }
       SetFound(true);
@@ -43,9 +39,7 @@ export default function ViewACustomer(props: Props): JSX.Element {
   return (
     <>
       {found ? 
-        (<Layout
-          isAuthorized={props.isAuthorized}
-          setAuthorized={props.setAuthorized}>
+        (<Layout>
           <div className = "bg-white rounded-lg">
             <div className="border-b px-4 py-2">
               <p className="font-bold text-lg">ID @{userInfo?.userID}</p>
@@ -62,9 +56,7 @@ export default function ViewACustomer(props: Props): JSX.Element {
         </Layout>
         ):(
           <div className='h-full flex border'>
-            <Layout
-              isAuthorized={props.isAuthorized}
-              setAuthorized={props.setAuthorized}>
+            <Layout>
               <div className = "h-full bg-white rounded-lg">No result</div>
             </Layout>
           </div>
