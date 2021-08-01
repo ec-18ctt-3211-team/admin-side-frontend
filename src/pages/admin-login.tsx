@@ -12,8 +12,6 @@ export default function AdminLogin(){
   const history = useHistory();
 
   async function login() {
-    console.log('email:' + userInfo.email);
-    console.log('password:' + userInfo.password);
     if (!userInfo.password) return;
     const payload = {
       email: userInfo.email,
@@ -24,7 +22,6 @@ export default function AdminLogin(){
     const response = await POST(ENDPOINT_URL.POST.login, payload);
     if (response.data.valid) {
       localStorage.setItem('token', response.data.token);
-      console.log(response.data.token);
       localStorage.setItem('userID', response.data.userID);
       setUserInfo({
         ...userInfo,
@@ -36,18 +33,6 @@ export default function AdminLogin(){
     } else console.log('A: '+ response.data.message);
   }
   
-  /*
-  const LogIn = () =>{
-    console.log('email1:' + userInfo.email);
-    console.log('password1:' + userInfo.password);
-    history.push({
-      pathname: SITE_PAGES.VIEW_A_ROOM.path,
-      search: '',  
-      state: { 
-        update: true, 
-      },
-    });
-  };*/
   function checkAuthorized(){
     console.log('Check Author');
     const token = localStorage.getItem('token');
