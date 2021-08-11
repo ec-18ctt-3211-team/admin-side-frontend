@@ -14,7 +14,8 @@ interface Props {
 
 export default function ViewACustomer(props: Props): JSX.Element {
   const location = useLocation();
-  const keyword = location.search.substring(1);
+  const path = location.pathname.split('/');
+  const keyword = path[path.length - 1];
 
   const [found, SetFound] = useState(false);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
@@ -24,7 +25,7 @@ export default function ViewACustomer(props: Props): JSX.Element {
     );
 
     if(response.status == 200){
-      if(response.data.customer === null) {
+      if(response.data.valid === false || response.data.customer === null) {
         return;
       }
       SetFound(true);

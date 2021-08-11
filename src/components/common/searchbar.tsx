@@ -14,10 +14,9 @@ export default function Searchbar(props: Props): JSX.Element {
   const handleKeyPressed = (e: any) =>{
     if(e.key == 'Enter'){
       let path = props.path;
-      path = path + '/search=' ;
+      path = path + `/${input}` ;
       history.push({
         pathname: path,
-        search: `${input}`,  
         state: { 
           update: true, 
         },
