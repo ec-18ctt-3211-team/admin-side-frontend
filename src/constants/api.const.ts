@@ -4,5 +4,7 @@ export const ENDPOINT_URL = {
     getHostsByID: (id: string) => `/customer/${id}`,
     getCustomerByID: (id: string) => `/customer/${id}`,
   },
-  POST: {},
+  POST: {
+    login: '/auth/login',
+  },
 };

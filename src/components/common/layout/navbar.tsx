@@ -1,14 +1,12 @@
 import { SITE_PAGES } from 'constants/pages.const';
 import { useHistory } from 'react-router-dom';
 import { Icon, logoutOutline } from 'utils/icon.utils';
+import React, { useState } from 'react';
 
-interface Props {
-  isAuthorized: boolean;
-  setAuthorized: (isAuthorized: boolean) => void;
-}
-
-export default function Navbar(props: Props): JSX.Element {
+export default function Navbar(): JSX.Element {
+  const [isAuthorized, setAuthorized] = useState(true);
   const history = useHistory();
+
   return (
     <div className="flex flex-wrap p-4 w-screen sticky border-b bg-white z-10">
       <div className="w-10 h-10 px-4 my-2 cursor-pointer rounded-full bg-gray-300"></div>
@@ -19,9 +17,12 @@ export default function Navbar(props: Props): JSX.Element {
         <span className="px-2">Admin</span>
         <span
           className="px-4"
-          // onClick={() => {
-          //   props.setAuthorized(false);
-          // }}
+          onClick={() => {
+            setAuthorized(false);
+            localStorage.removeItem('token');
+            localStorage.removeItem('userID');
+            history.push(SITE_PAGES.ADMIN_LOG_IN.path);
+          }}
         >
           <Icon icon={logoutOutline} />
         </span>

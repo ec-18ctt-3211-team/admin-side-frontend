@@ -6,10 +6,6 @@ import { GET } from 'utils/fetcher.utils';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { useLocation } from 'react-router-dom';
 
-interface Props {
-  isAuthorized: boolean;
-  setAuthorized: (isAuthorized: boolean) => void;
-}
 interface IHostInfo{
   hostID: string;
   hostname: string;
@@ -18,7 +14,7 @@ interface IHostInfo{
   citizen_id: string;
 }
 
-export default function ViewAHost(props: Props): JSX.Element {
+export default function ViewAHost(): JSX.Element {
   const location = useLocation();
   const path = location.pathname.split('/');
   const keyword = path[path.length - 1];
@@ -52,9 +48,7 @@ export default function ViewAHost(props: Props): JSX.Element {
   return(
     <>
       {found ?
-        (<Layout
-          isAuthorized={props.isAuthorized}
-          setAuthorized={props.setAuthorized}>
+        (<Layout>
           <div className = 'bg-white rounded-lg'>
             <div className='border-b px-4 py-2'>
               <p className='font-bold text-lg'>ID @{hostInfo?.hostID}</p>
@@ -71,9 +65,7 @@ export default function ViewAHost(props: Props): JSX.Element {
         </Layout>): 
         (
           <div className='h-full flex border'>
-            <Layout
-              isAuthorized={props.isAuthorized}
-              setAuthorized={props.setAuthorized}>
+            <Layout>
               <div className = "h-full bg-white rounded-lg">No result</div>
             </Layout>
           </div>
