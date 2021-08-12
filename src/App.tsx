@@ -10,17 +10,15 @@ function App() {
           <Pages.AdminLogin/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_ROOM.path}>
-          <Pages.ViewBlankPage
-            path={SITE_PAGES.VIEW_A_ROOM.path}/>
+          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_ROOM.path}/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_HOST.path}>
-          <Pages.ViewBlankPage 
-            path={SITE_PAGES.VIEW_A_HOST.path}/>
+          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_HOST.path}/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
-          <Pages.ViewBlankPage 
-            path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
-        </Route>     
+          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
+        </Route>   
+        
         <Route path={SITE_PAGES.VIEW_A_ROOM.path}>
           <Pages.ViewARoom/>
         </Route>
