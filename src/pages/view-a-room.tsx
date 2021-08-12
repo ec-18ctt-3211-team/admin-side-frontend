@@ -9,9 +9,6 @@ import { IHostDetail } from 'interfaces/host.interface';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-interface IHostID{
-  host_id: string;
-}
 
 export default function ViewARoom(): JSX.Element{
   const location = useLocation();

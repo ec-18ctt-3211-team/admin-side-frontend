@@ -20,7 +20,7 @@ export default function ViewACustomer(): JSX.Element {
     );
 
     if(response.status == 200){
-      if(response.data.valid === false) {
+      if(response.data.valid === false || response.data.customer === null) {
         return;
       }
       SetFound(true);
