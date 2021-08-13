@@ -5,6 +5,7 @@ import ViewACustomer from './view-a-customer';
 import AdminLogin from './admin-login';
 
 export const Pages = {
+  AdminLogin,
   ViewARoom,
   ViewAHost,
   ViewBlankPage,

@@ -22,7 +22,7 @@ function App() {
           <Pages.ViewARoom/>
         </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
-          <Pages.ViewAHost/>
+          <Pages.ViewAHost />
         </Route>
         <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewACustomer/>

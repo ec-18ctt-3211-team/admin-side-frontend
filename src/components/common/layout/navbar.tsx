@@ -15,7 +15,6 @@ export default function Navbar(): JSX.Element {
       return false;
     }
   }
-
   useEffect(() => {
     setAuthorized(checkAuthorized());
     if(!isAuthorized){
