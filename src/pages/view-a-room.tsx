@@ -9,18 +9,12 @@ import { IHostDetail } from 'interfaces/host.interface';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-interface IHostID{
-  host_id: string;
-}
-interface Props {
-  isAuthorized: boolean;
-  setAuthorized: (isAuthorized: boolean) => void;
-}
 
-export default function ViewARoom(id: IHostID , props: Props): JSX.Element{
+export default function ViewARoom(): JSX.Element{
   const location = useLocation();
-  const keyword = location.search.substring(1);
-  console.log('dasd: '+ keyword);
+  const path = location.pathname.split('/');
+  const keyword = path[path.length - 1];
+  //console.log('dasd: '+ keyword);
 
   const [roomDetails, setRoomDetails] = useState<IRoomDetail>();
   const [hostDetails, setHostDetails] = useState<IHostDetail>();
@@ -40,12 +34,10 @@ export default function ViewARoom(id: IHostID , props: Props): JSX.Element{
   }, []);
 
   return(
-    <Layout
-      isAuthorized={props.isAuthorized}
-      setAuthorized={props.setAuthorized}>
+    <Layout>
       <div className = 'bg-white rounded-lg'>
         <div className='border-b px-4 py-2'>
-          <p className='font-bold text-lg'>ID @{id.host_id}</p>
+          <p className='font-bold text-lg'>ID @{roomDetails?._id}</p>
         </div>
         {roomDetails && roomDetails.photos && hostDetails ?(
           <div>

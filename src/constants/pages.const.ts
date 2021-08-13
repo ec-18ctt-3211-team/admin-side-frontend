@@ -3,6 +3,10 @@ export const SITE_PAGES = {
     label: 'home',
     path: '/',
   },
+  ADMIN_LOG_IN:{
+    label: 'log in',
+    path: '/',
+  },
   VIEW_A_ROOM: {
     label:'view a room',
     path: '/view_a_room'

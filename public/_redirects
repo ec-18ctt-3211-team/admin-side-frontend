@@ -1,0 +1,4 @@
+/* /index.html 200
+/view_a_customer /view_a_customer/:id
+/view_a_host /view_a_host/:id
+/view_a_room /view_a_room/:id
