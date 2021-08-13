@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 import { Pages } from './pages';
@@ -19,9 +18,8 @@ function App() {
         <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
         </Route>
-        
         <Route path={SITE_PAGES.VIEW_A_ROOM.path}>
-          <Pages.ViewARoom />
+          <Pages.ViewARoom/>
         </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost/>

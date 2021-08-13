@@ -37,7 +37,7 @@ export default function ViewARoom(): JSX.Element{
     <Layout>
       <div className = 'bg-white rounded-lg'>
         <div className='border-b px-4 py-2'>
-          <p className='font-bold text-lg'>ID @{roomDetails?.host_id}</p>
+          <p className='font-bold text-lg'>ID @{roomDetails?._id}</p>
         </div>
         {roomDetails && roomDetails.photos && hostDetails ?(
           <div>
