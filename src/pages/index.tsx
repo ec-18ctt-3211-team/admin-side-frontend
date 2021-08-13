@@ -10,6 +10,5 @@ export const Pages = {
   ViewAHost,
   ViewBlankPage,
   ViewACustomer,
-  AdminLogin,
 };
 
