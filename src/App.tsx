@@ -17,7 +17,7 @@ function App() {
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
-        </Route>     
+        </Route>
         <Route path={SITE_PAGES.VIEW_A_ROOM.path}>
           <Pages.ViewARoom/>
         </Route>

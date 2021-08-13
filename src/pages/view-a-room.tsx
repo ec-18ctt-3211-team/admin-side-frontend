@@ -12,8 +12,9 @@ import { useLocation } from 'react-router-dom';
 
 export default function ViewARoom(): JSX.Element{
   const location = useLocation();
-  const keyword = location.search.substring(1);
-  console.log('dasd: '+ keyword);
+  const path = location.pathname.split('/');
+  const keyword = path[path.length - 1];
+  //console.log('dasd: '+ keyword);
 
   const [roomDetails, setRoomDetails] = useState<IRoomDetail>();
   const [hostDetails, setHostDetails] = useState<IHostDetail>();

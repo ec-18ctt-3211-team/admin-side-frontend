@@ -1,11 +1,26 @@
 import { SITE_PAGES } from 'constants/pages.const';
 import { useHistory } from 'react-router-dom';
 import { Icon, logoutOutline } from 'utils/icon.utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Navbar(): JSX.Element {
-  const [isAuthorized, setAuthorized] = useState(true);
+  const [isAuthorized, setAuthorized] = useState(checkAuthorized());
   const history = useHistory();
+  function checkAuthorized() {
+    const userID = localStorage.getItem('userID');
+    if (userID) {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  useEffect(() => {
+    setAuthorized(checkAuthorized());
+    if(!isAuthorized){
+      history.push(SITE_PAGES.ADMIN_LOG_IN.path);
+    }
+  }, [localStorage]);
 
   return (
     <div className="flex flex-wrap p-4 w-screen sticky border-b bg-white z-10">

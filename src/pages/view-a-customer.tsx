@@ -10,7 +10,8 @@ import { useLocation } from 'react-router-dom';
 
 export default function ViewACustomer(): JSX.Element {
   const location = useLocation();
-  const keyword = location.search.substring(1);
+  const path = location.pathname.split('/');
+  const keyword = path[path.length - 1];
 
   const [found, SetFound] = useState(false);
   const [userInfo, setUserInfo] = useState<IUserInfo>();

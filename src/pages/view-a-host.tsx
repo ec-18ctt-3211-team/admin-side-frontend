@@ -16,7 +16,8 @@ interface IHostInfo{
 
 export default function ViewAHost(): JSX.Element {
   const location = useLocation();
-  const keyword = location.search.substring(1);
+  const path = location.pathname.split('/');
+  const keyword = path[path.length - 1];
 
   const [found, SetFound] = useState(false);
   const [hostInfo, setHostInfo] = useState<IHostInfo>();
@@ -26,7 +27,9 @@ export default function ViewAHost(): JSX.Element {
     );
     
     if(response.status == 200){
-      if(response.data.customer === null) return;
+      if(response.data.valid === false || response.data.customer === null) {
+        return;
+      }
       SetFound(true);
       setHostInfo({ ...hostInfo, 
         hostID: response.data.customer._id, 
