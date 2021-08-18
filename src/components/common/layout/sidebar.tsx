@@ -1,20 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 
 const Menu = (props: {
   data: { label: string; path: string };
 }): JSX.Element => {
-  const location = useLocation();
   return (
     <Link
       to={props.data.path}
-      className={[
-        'p-4 w-full uppercase font-semibold text-sm',
-        'hover:bg-brown-400 hover:text-white',
-        location.pathname.includes(props.data.path)
-          ? 'bg-brown-400 text-white'
-          : 'text-brown-400',
-      ].join(' ')}
+      className="p-4 w-full uppercase font-semibold text-sm text-brown-400 hover:bg-brown-400 hover:text-white"
     >
       {props.data.label}
     </Link>
@@ -22,8 +15,24 @@ const Menu = (props: {
 };
 
 export default function Sidebar(): JSX.Element {
+  const username = localStorage.getItem('username');
+  const userImg = localStorage.getItem('userImg');
   return (
-    <div className="bg-white w-[232px] min-h-full flex flex-col py-6">
+    <div className="bg-white w-[232px] h-full flex flex-col">
+      <div
+        className={[
+          'p-2 m-4 flex items-center rounded-3xl w-2/3',
+          'text-brown-600 bg-brown-100',
+          'hover:text-brown-100 hover:bg-brown-600',
+        ].join(' ')}
+      >
+        {userImg ? (
+          <img src={userImg} className="w-8 h-8 bg-gray-300 rounded-full" />
+        ) : (
+          <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+        )}
+        <span className="px-2">{username}</span>
+      </div>
       <Menu data={SITE_PAGES.VIEW_A_ROOM} />
       <Menu data={SITE_PAGES.VIEW_A_HOST} />
       <Menu data={SITE_PAGES.VIEW_A_CUSTOMER} />
