@@ -13,7 +13,7 @@ import { IUserInfo } from 'interfaces/user.interface';
 
 
 interface IFormInput{
-  type: 'SignUp'| 'LogIn'| 'AdminLogIn';
+  type: 'SignUp'| 'LogIn' | 'AdminLogIn';
   title?: string;
   onClick?: () => void;
   userInfo: IUserInfo;
@@ -36,7 +36,8 @@ export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
             icon={{ icon: <Icon icon={envelopeOutline} />, position: 'right' }}
             onChange={(e) =>
               props.setUserInfo({ ...props.userInfo, email: e.target.value })
-            }/>
+            }
+          />
         </div>
 
         {type === 'SignUp' && 
@@ -83,10 +84,9 @@ export const Form: React.FC<IFormInput> = (props: IFormInput) =>{
           </div>}
         
         <div className='w-full flex justify-center py-4'>
-          {type === 'SignUp' 
-            && <Button children ='Sign Up' className="py-2 w-2/3 h-full" onClick={props.onClick}></Button>}
-          {(type === 'LogIn' || type === 'AdminLogIn')  
-            && <Button children ='Log In' className="py-2 w-2/3 h-full" onClick={props.onClick}></Button>}
+          {type === 'SignUp' && <Button children ='Sign Up' className="py-2 w-2/3 h-full"></Button>}
+          {(type === 'LogIn' || type === 'AdminLogIn')  && 
+            <Button children ='Log In' className="py-2 w-2/3 h-full" onClick={props.onClick}></Button>}
         </div>
         {type === 'LogIn'  && <p className ='italic my-4'>or</p>}
         {type === 'LogIn'  && <p className='italic' id='p-link'>create a new account</p>}

@@ -9,7 +9,6 @@ import { IHostDetail } from 'interfaces/host.interface';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-
 export default function ViewARoom(): JSX.Element{
   const location = useLocation();
   const path = location.pathname.split('/');
@@ -52,7 +51,7 @@ export default function ViewARoom(): JSX.Element{
               )}
               <DivPx size={48} />
             </div>
-            <div className="w-full flex flex-col items-center lg:flex-row">       
+            <div className="w-full flex lg:flex-row">       
               <div className="w-2/3 lg:w-2/5">
                 <Dialogue detail={roomDetails} hostdetail= {hostDetails} />
               </div>

@@ -1,55 +1,82 @@
 import { useEffect, useState } from 'react';
 import { Pagination } from 'components/common';
-import { IBookingTable } from 'interfaces/user.interface';
+import { IBookingHistory, IBookingTable, IStatus } from 'interfaces/user.interface';
 import { Link } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 import './booking-history.css';
+import { IOrder } from 'interfaces/order.interface';
 
 export const OrderStatus = {
-  waiting: { label: 'Waiting', color: 'text-gray-400' },
-  accepted: { label: 'Accepted', color: 'text-success' },
-  done: { label: 'Done', color: 'text-brown-400' },
-  denied: { label: 'Denied', color: 'text-error' },
+  waiting: { label: 'pending', color: 'text-gray-400' },
+  accepted: { label: 'accepted', color: 'text-success' },
+  done: { label: 'done', color: 'text-brown-400' },
+  denied: { label: 'rejected', color: 'text-error' },
 };
+
+function CheckStatus(status: string): IStatus{
+  if(status === OrderStatus.waiting.label) return OrderStatus.waiting;
+  else if(status === OrderStatus.accepted.label) return OrderStatus.accepted;
+  else return OrderStatus.denied;
+}
+
+
+interface IBookingList{
+  list: IOrder[];
+}
 
 interface Props {
   booking_history: IBookingTable[];
   items_per_pages?: number;
+  currentPage: number;
 }
-export default function CustomerBookingTable(): JSX.Element {
-  const bookinghistory: IBookingTable[] = [
-    { orderID: '#0', roomID: '123', order_status: OrderStatus.waiting },
-    { orderID: '#1', roomID: '123', order_status: OrderStatus.waiting },
-    {
-      orderID: '#2',
-      roomID: '123',
-      order_status: OrderStatus.accepted,
-    },
-    { orderID: '#3', roomID: '123', order_status: OrderStatus.denied },
-    { orderID: '#4', roomID: '123', order_status: OrderStatus.done },
-    { orderID: '#5', roomID: '123', order_status: OrderStatus.denied },
-    {
-      orderID: '#6',
-      roomID: '123',
-      order_status: OrderStatus.accepted,
-    },
-  ];
+
+const items_per_pages = 6 ;
+
+export default function CustomerBookingTable(props: IBookingList): JSX.Element {
+  console.log('Here');
+  console.log(props.list);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [maxPage, setMaxPage] = useState<number>(10);
+
+  useEffect(() => {
+    props.list === undefined ? setMaxPage(1)
+      : setMaxPage(Math.ceil(props.list.length / items_per_pages));
+  }, [props.list]);
+  
+
+  const list : IBookingTable[] = [];
+  props.list.map((item, index)=>{
+    list.push({ orderID: item._id, order_status: CheckStatus(item.status), roomID: item.room_id });
+  });
+
+  const indexofLastOrder = (currentPage + 1)*items_per_pages;
+  const indexofFirstOrder = indexofLastOrder - items_per_pages;
+
+  let currentOrder : IBookingTable[] = ([{ orderID: '', roomID: '', order_status: OrderStatus.waiting }]);
+  if(list) currentOrder = list.slice(indexofFirstOrder, indexofLastOrder);
+  console.log('Here 1');
+  console.log(currentOrder);
+  
   return (
-    <div className="list-box">
+    <div className=" border">
       <div className="uppercase font-bold text-xl px-6 pt-4">
         Booking history
       </div>
       <div>
-        <BookingTable booking_history={bookinghistory} />
+        <BookingTable booking_history={currentOrder} currentPage={currentPage}/>
+      </div>
+      <div className="mt-auto">
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
+        />
       </div>
     </div>
   );
 }
 
 function BookingTable(props: Props) {
-  const { items_per_pages = 6 } = props;
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [maxPage, setMaxPage] = useState<number>(10);
   const [render, setRender] = useState(renderTable());
 
   function renderTable() {
@@ -67,7 +94,7 @@ function BookingTable(props: Props) {
                   : 'border-b'
               }
             >
-              <td className="border-r py-6">{item.orderID}</td>
+              <td className="border-r py-6">{index + props.currentPage * items_per_pages}</td>
               <td className="border-r py-6">
                 <Link to={SITE_PAGES.BOOKING_HISTORY.path}>{item.roomID}</Link>
               </td>
@@ -80,31 +107,25 @@ function BookingTable(props: Props) {
       </tbody>
     );
   }
-
+  
   useEffect(() => {
     setRender(renderTable());
-  }, [currentPage]);
+  }, [props.booking_history]);
 
+  console.log('Or');
   return (
-    <div className="bg-white rounded-xl shadow-lg w-full flex flex-col items-center p-6">
+    <div className="bg-white rounded-xl w-full flex flex-col items-center p-6">
       <table className="table-auto w-full">
         <thead>
           <tr className="border-b uppercase">
-            <th className="border-r py-6">ID</th>
-            <th className="border-r py-6">Booking Information</th>
+            <th className="border-r py-6">No</th>
+            <th className="border-r py-6">Room ID</th>
             <th className="py-6">Status</th>
           </tr>
         </thead>
         {render}
       </table>
 
-      <div className="mt-auto">
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          maxPage={maxPage}
-        />
-      </div>
     </div>
   );
 }

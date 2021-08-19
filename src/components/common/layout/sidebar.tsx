@@ -18,7 +18,7 @@ export default function Sidebar(): JSX.Element {
   const username = localStorage.getItem('username');
   const userImg = localStorage.getItem('userImg');
   return (
-    <div className="bg-white w-[232px] h-full flex flex-col">
+    <div className="bg-white w-[232px] h-auto flex flex-col">
       <div
         className={[
           'p-2 m-4 flex items-center rounded-3xl w-2/3',
@@ -36,6 +36,8 @@ export default function Sidebar(): JSX.Element {
       <Menu data={SITE_PAGES.VIEW_A_ROOM} />
       <Menu data={SITE_PAGES.VIEW_A_HOST} />
       <Menu data={SITE_PAGES.VIEW_A_CUSTOMER} />
+      <Menu data={SITE_PAGES.VIEW_COUPON_LIST} />
+      <Menu data={SITE_PAGES.VIEW_CITY_LIST} />
     </div>
   );
 }

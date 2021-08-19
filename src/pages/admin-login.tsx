@@ -12,25 +12,32 @@ export default function AdminLogin(){
   const history = useHistory();
 
   async function login() {
-    if (!userInfo.password) return;
+    if (!userInfo.password) {
+      window.alert('Please enter your password.');
+      return;
+    }
     const payload = {
       email: userInfo.email,
       password: userInfo.password,
       isAdmin: true,
     };
-
-    const response = await POST(ENDPOINT_URL.POST.login, payload);
-    if (response.data.valid) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userID', response.data.userID);
-      setUserInfo({
-        ...userInfo,
-        userID: response.data.userID,
-        username: response.data.name,
-        ava: BASE + response.data.ava,
-      });
-      checkAuthorized();
-    } else console.log('A: '+ response.data.message);
+    try{
+      const response = await POST(ENDPOINT_URL.POST.login, payload);
+      if (response.data.valid) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userID', response.data.userID);
+        setUserInfo({
+          ...userInfo,
+          userID: response.data.userID,
+          username: response.data.name,
+          ava: BASE + response.data.ava,
+        });
+        checkAuthorized();
+      }
+    }
+    catch (error: any){
+      window.alert(error.response.data.message);
+    }
   }
   
   function checkAuthorized(){

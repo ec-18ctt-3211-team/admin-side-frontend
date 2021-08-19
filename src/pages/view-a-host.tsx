@@ -58,7 +58,7 @@ export default function ViewAHost(): JSX.Element {
                 <HostInfo host={hostInfo}></HostInfo>
               </div>
               <div className='w-2\/5 lg:w-3/5'>
-                <HostListofRoom></HostListofRoom>
+                <HostListofRoom host_id={hostInfo?.hostID}></HostListofRoom>
               </div>
             </div>
           </div>    
