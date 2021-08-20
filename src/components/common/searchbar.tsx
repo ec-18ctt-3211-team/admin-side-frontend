@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 interface Props{
   path: string;
+  type?: string;
 }
 
 export default function Searchbar(props: Props): JSX.Element {
@@ -29,8 +30,8 @@ export default function Searchbar(props: Props): JSX.Element {
       <Input
         border="full"
         type="text"
-        placeholder="Search"
-        classname="shadow-md"
+        placeholder={` Type ${props.type} `}
+        classname="shadow-md py-2 px-4"
         icon={{
           icon: (
             <InlineIcon icon={searchOutline} style={{ fontSize: 'inherit' }} />

@@ -3,13 +3,16 @@ import { inputType, borderType, positionType, DivPx } from 'components/common';
 interface Props {
   border: borderType;
   type: inputType;
+  disable?: boolean;
   value?: string | number;
+  checked?: boolean;
   placeholder?: string;
   classname?: string;
   label?: { value: string; position: positionType };
   icon?: { icon: React.ReactNode; position: positionType };
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
 }
 
 export default function Input(props: Props): JSX.Element {
@@ -37,21 +40,32 @@ export default function Input(props: Props): JSX.Element {
             props.classname,
             props.border === 'full'
               ? 'border rounded-lg'
-              : 'border-b-2 border-gray-200',
+              : props.border === 'line'
+                ?'border-b-2 border-gray-200' : '',
           ].join(' ')}
         >
           {/* left icon  */}
           {props.icon?.position === 'left' && props.icon?.icon}
 
           {/* input  */}
-          <input
-            type={props.type}
-            placeholder={props.placeholder}
-            className="w-full px-4 focus:outline-none"
-            defaultValue={props.value?.toString()}
-            onChange={props.onChange}
-            onKeyDown = {props.onKeyDown}
-          />
+          {props.type != 'checkbox' ? 
+            <input
+              type={props.type}
+              placeholder={props.placeholder}
+              className="w-full px-1 focus:outline-none"
+              defaultValue={props.value?.toString()}
+              onChange={props.onChange}
+              onKeyDown = {props.onKeyDown}
+              disabled = {props.disable}
+            />
+            :
+            <input
+              type={props.type}
+              defaultChecked={props.checked}
+              onClick={props.onClick}
+            />
+          }
+          
 
           {/* right icon  */}
           {props.icon?.position === 'right' && props.icon?.icon}

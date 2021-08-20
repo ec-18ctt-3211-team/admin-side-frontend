@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { Pagination } from 'components/common';
 import { IBookingTable } from 'interfaces/user.interface';
 import { SITE_PAGES } from 'constants/pages.const';
+import './list-of-rooms-table.css';
 
-
+interface HostID{
+  host_id? : string;
+}
 interface IRoom{
   ID?: string;
   Name? : string;
@@ -11,8 +14,9 @@ interface IRoom{
 
 interface Props {
   list_of_rooms: IRoom[];
-  items_per_pages?: number;
 }
+
+const items_per_pages = 6;
 export const OrderStatus = {
   waiting: { label: 'Waiting', color: 'text-gray-400' },
   accepted: { label: 'Accepted', color: 'text-success' },
@@ -20,8 +24,7 @@ export const OrderStatus = {
   denied: { label: 'Denied', color: 'text-error' },
 };
 
-
-export default function HostListofRoom() :JSX.Element{ 
+export default function HostListofRoom(props: HostID) :JSX.Element{ 
   const roomlists: IRoom[] =[
     { ID: '#1', Name: 'LUXURY HOMESTAY' },{},{},{},{},{}
   ];
@@ -41,27 +44,36 @@ export default function HostListofRoom() :JSX.Element{
 }
 
 function ListOfRoomsTable(props: Props) {
-  const { items_per_pages = 6 } = props;
+  let currentRoom : IRoom[]= [{}];
+  const [rooms, setRooms] = useState<IRoom[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState<number>(10);
   const [render, setRender] = useState(renderTable());
 
+  const indexofLastRoom = (currentPage + 1)*items_per_pages;
+  const indexofFirstRoom = indexofLastRoom - items_per_pages;
+  currentRoom = rooms.slice(indexofFirstRoom, indexofLastRoom);
+  
+  for (let i = currentRoom.length; i < 6; i++) {
+    currentRoom.push({});
+  }
+
   function renderTable() {
     return (
       <tbody className="text-center">
-        {props.list_of_rooms.map((item, index) => {
+        {currentRoom.map((item, index) => {
           if (index > items_per_pages - 1) return;
           return (
             <tr
               key={item.ID}
               className={
                 (index > 0 && index % (items_per_pages - 1) === 0) ||
-                index === props.list_of_rooms.length - 1
+                index === currentRoom.length - 1
                   ? ''
                   : 'border-b'
               }
             >
-              <td className="border-r py-6">{item.ID}</td>
+              <td className="border-r py-6 w-12">{item.ID}</td>
               <td className="py-6">
                 {item.Name}
               </td>
@@ -73,8 +85,13 @@ function ListOfRoomsTable(props: Props) {
   }
 
   useEffect(() => {
-    setRender(renderTable());
+    setRooms(props.list_of_rooms);
   }, [currentPage]);
+
+  useEffect(() => {
+    setMaxPage( Math.ceil(rooms.length/items_per_pages) );
+    setRender(renderTable());
+  }, [rooms]);
 
   return (
     <div className="bg-white rounded-xl shadow-lg w-full flex flex-col items-center p-6">

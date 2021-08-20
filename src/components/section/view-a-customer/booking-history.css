@@ -1,7 +1,9 @@
-.vl {
-  border-left: 1px solid #d9d6d6;
-  position: absolute;
-}
 .list-box {
   width: 100%;
+}
+.border-l {
+  border-width: 6px;
+}
+.h-inherit {
+  height: inherit;
 }

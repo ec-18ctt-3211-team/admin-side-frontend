@@ -10,16 +10,25 @@ function App() {
           <Pages.AdminLogin/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_ROOM.path}>
-          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_ROOM.path}/>
+          <Pages.ViewBlankPage
+            path={SITE_PAGES.VIEW_A_ROOM.path}/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_HOST.path}>
-          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_HOST.path}/>
+          <Pages.ViewBlankPage 
+            path={SITE_PAGES.VIEW_A_HOST.path}/>
         </Route>
         <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
-          <Pages.ViewBlankPage path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
-        </Route>
+          <Pages.ViewBlankPage 
+            path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
+        </Route>  
+        <Route exact path={SITE_PAGES.VIEW_COUPON_LIST.path}>
+          <Pages.ViewCouponList/>
+        </Route>  
+        <Route exact path={SITE_PAGES.VIEW_CITY_LIST.path}>
+          <Pages.ViewCityList/>
+        </Route>  
         <Route path={SITE_PAGES.VIEW_A_ROOM.path}>
-          <Pages.ViewARoom/>
+          <Pages.ViewARoom />
         </Route>
         <Route path={SITE_PAGES.VIEW_A_HOST.path}>
           <Pages.ViewAHost />
@@ -29,6 +38,12 @@ function App() {
         </Route>
         <Route path={SITE_PAGES.VIEW_BLANK_PAGE.path}>
           <Pages.ViewBlankPage path="/" />
+        </Route>
+        <Route path={SITE_PAGES.VIEW_COUPON_LIST.path}>
+          <Pages.ViewCouponDetails />
+        </Route>
+        <Route path={SITE_PAGES.VIEW_CITY_LIST.path}>
+          <Pages.ViewCityDetails />
         </Route>
         <Route path="*">
           <div>ERROR!!!</div>

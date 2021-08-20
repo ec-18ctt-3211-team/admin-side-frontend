@@ -14,6 +14,7 @@ import contactSolid from '@iconify/icons-teenyicons/contact-solid';
 import idSolid from '@iconify/icons-teenyicons/id-solid';
 import edit1Solid from '@iconify/icons-teenyicons/edit-1-solid';
 import logoutOutline from '@iconify/icons-teenyicons/logout-outline';
+import binSolid from '@iconify/icons-teenyicons/bin-solid';
 
 export {
   Icon,
@@ -33,4 +34,5 @@ export {
   idSolid,
   edit1Solid,
   logoutOutline,
+  binSolid,
 };

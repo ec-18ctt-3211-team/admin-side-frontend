@@ -36,7 +36,8 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
             placeholder = 'email'
             classname = 'py-2'
             value = {host?.email}
-            icon={{ icon: <Icon icon={envelopeOutline} />, position: 'right' }}/>
+            icon={{ icon: <Icon icon={envelopeOutline} />, position: 'right' }}
+            disable/>
         </div>
 
         <div className='py-2'>
@@ -46,7 +47,8 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
             placeholder= 'full name'
             classname = 'py-2'
             value = {host?.hostname}
-            icon={{ icon: <Icon icon={userSolid} />, position: 'right' }}/> 
+            icon={{ icon: <Icon icon={userSolid} />, position: 'right' }}
+            disable/> 
         </div>
     
         <div className='py-2'> 
@@ -56,7 +58,8 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
             placeholder = 'phone number'
             classname = 'py-2' 
             value = {host?.phone_number}
-            icon={{ icon: <Icon icon={phoneOutline} />, position: 'right' }}/> 
+            icon={{ icon: <Icon icon={phoneOutline} />, position: 'right' }}
+            disable/> 
         </div>
     
         <div className='py-2'>  
@@ -66,7 +69,8 @@ export const HostInfo: React.FC<IFormInput> = (props: IFormInput) =>{
             placeholder = 'citizen id' 
             classname = 'py-2'
             value = {host?.citizen_id}
-            icon={{ icon: <Icon icon={contactSolid} />, position: 'right' }}/>
+            icon={{ icon: <Icon icon={contactSolid} />, position: 'right' }}
+            disable/>
         </div>
       </div>
     </div>

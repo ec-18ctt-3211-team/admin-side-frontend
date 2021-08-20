@@ -26,7 +26,7 @@ export default function Dialogue(props: Props): JSX.Element {
   }, [dayStart, dayEnd]);
 
   return (
-    <div className="border rounded-md w-full flex flex-col items-center px-2 py-2 ml-1.5">
+    <div className="border rounded-md w-full flex flex-col items-center px-2 ml-1.5">
       <div className="w-full flex justify-center my-1">{props.hostdetail.host_name}</div>
       <div className="w-full flex justify-center my-1">{props.hostdetail._id}</div>
       <div className="w-full flex flex-row my-1">

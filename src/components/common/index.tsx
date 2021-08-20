@@ -9,8 +9,8 @@ import DivPx from './divpx';
 import { Pagination, PaginationItem } from './pagination';
 import SelectOption from './options';
 
-export type borderType = 'full' | 'line';
-export type inputType = 'text' | 'password';
+export type borderType = 'full' | 'line' | 'none';
+export type inputType = 'text' | 'password' | 'checkbox';
 export type positionType = 'left' | 'right' | 'top' | 'bottom';
 
 export {

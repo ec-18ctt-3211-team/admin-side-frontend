@@ -1,0 +1,4 @@
+tr:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(203, 175, 160, var(--tw-bg-opacity));
+}
