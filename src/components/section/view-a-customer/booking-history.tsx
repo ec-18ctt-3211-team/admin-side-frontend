@@ -33,8 +33,6 @@ interface Props {
 const items_per_pages = 6 ;
 
 export default function CustomerBookingTable(props: IBookingList): JSX.Element {
-  console.log('Here');
-  console.log(props.list);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState<number>(10);
 
@@ -54,8 +52,6 @@ export default function CustomerBookingTable(props: IBookingList): JSX.Element {
 
   let currentOrder : IBookingTable[] = ([{ orderID: '', roomID: '', order_status: OrderStatus.waiting }]);
   if(list) currentOrder = list.slice(indexofFirstOrder, indexofLastOrder);
-  console.log('Here 1');
-  console.log(currentOrder);
   
   return (
     <div className=" border">
