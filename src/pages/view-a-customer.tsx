@@ -41,7 +41,6 @@ export default function ViewACustomer(): JSX.Element {
         phone_number: response.data.customer.phone,
         email: response.data.customer.email,
       });
-      console.log('ID:'+ userInfo.userID);
     }
   }
   async function getUserBooking(userID: string){
@@ -54,7 +53,6 @@ export default function ViewACustomer(): JSX.Element {
       if(response.data.valid === false) {
         return;
       }
-      console.log(userID);
       setBookingHistory(response.data.orders);
     }
   }
@@ -65,8 +63,6 @@ export default function ViewACustomer(): JSX.Element {
   useEffect(()=>{
     getUserBooking(userInfo.userID);
   }, [userInfo.userID]);
-  console.log('Origin');
-  console.log(bookingHistory);
   
   return (
     <>
