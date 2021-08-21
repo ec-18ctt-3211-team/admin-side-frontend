@@ -11,4 +11,7 @@ export const ENDPOINT_URL = {
     login: '/auth/login',
     createACity: '/city',
   },
+  PUT: {
+    updateACity: (id: string) => `/city/${id}`,
+  }
 };
