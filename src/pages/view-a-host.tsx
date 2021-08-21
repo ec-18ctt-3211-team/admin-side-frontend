@@ -5,6 +5,7 @@ import { Layout } from 'components/common';
 import { GET } from 'utils/fetcher.utils';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { useLocation } from 'react-router-dom';
+import { DefaultListofRooms, IRoomDetail } from 'interfaces/room.interface';
 
 interface IHostInfo{
   hostID: string;
@@ -20,8 +21,11 @@ export default function ViewAHost(): JSX.Element {
   const keyword = path[path.length - 1];
 
   const [found, SetFound] = useState(false);
-  const [hostInfo, setHostInfo] = useState<IHostInfo>();
-  async function getData(){
+  const [hostInfo, setHostInfo] = useState<IHostInfo>({ hostID: '', 
+    hostname: '', phone_number: '', email: '', citizen_id: '' });
+  const [listofrooms, setListofRooms] = useState<IRoomDetail[]>([DefaultListofRooms]);
+
+  async function getHostData(){
     const response = await GET(
       ENDPOINT_URL.GET.getHostsByID(keyword),
     );
@@ -40,10 +44,26 @@ export default function ViewAHost(): JSX.Element {
       });
     }
   }
+  async function getHostListofRooms(hostID: string){
+    if(!hostID) return;
+    const response = await GET(
+      ENDPOINT_URL.GET.getRoomByHostID(hostID),
+    );
+
+    if(response.status == 200){
+      if(response.data.valid === false) {
+        return;
+      }
+      setListofRooms(response.data.rooms);
+    }
+  }
 
   useEffect(()=>{
-    getData();
-  }, [hostInfo]);
+    getHostData();
+  }, []);
+  useEffect(()=>{
+    getHostListofRooms(hostInfo.hostID);
+  }, [hostInfo.hostID]);
 
   return(
     <>
@@ -58,7 +78,7 @@ export default function ViewAHost(): JSX.Element {
                 <HostInfo host={hostInfo}></HostInfo>
               </div>
               <div className='w-2\/5 lg:w-3/5'>
-                <HostListofRoom host_id={hostInfo?.hostID}></HostListofRoom>
+                <HostListofRoom list={listofrooms}></HostListofRoom>
               </div>
             </div>
           </div>    

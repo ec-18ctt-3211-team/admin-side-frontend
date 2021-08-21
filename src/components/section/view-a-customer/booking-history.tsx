@@ -19,7 +19,6 @@ function CheckStatus(status: string): IStatus{
   else return OrderStatus.denied;
 }
 
-
 interface IBookingList{
   list: IOrder[];
 }

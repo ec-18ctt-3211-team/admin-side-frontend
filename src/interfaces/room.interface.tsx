@@ -44,3 +44,26 @@ export interface IRoomDetail {
   room_type?: string;
   total_bedrooms?: string;
 }
+
+export const DefaultRoomAddress : IRoomAddress = {
+  number: '',
+  street: '',
+  ward: '',
+  district: '',
+  city: '',
+};
+
+export const DefaultListofRooms : IRoomDetail = {
+  _id: 'default',
+  title: '',
+  thumnail: '',
+  max_guest: 0,
+  host_id: '',
+  address: DefaultRoomAddress,
+  description: '',
+  normal_price: 0,
+  weekend_price: 0,
+  created_at: '',
+  deleted_at: null,
+  __v: 0,
+};
