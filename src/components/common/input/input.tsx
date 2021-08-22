@@ -61,8 +61,9 @@ export default function Input(props: Props): JSX.Element {
             :
             <input
               type={props.type}
-              defaultChecked={props.checked}
+              checked={props.checked}
               onClick={props.onClick}
+              onChange={props.onChange}
             />
           }
           

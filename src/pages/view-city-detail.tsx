@@ -40,7 +40,6 @@ export default function ViewCityDetails(): JSX.Element{
   }
   useEffect(() => {
     fetchCity();
-    console.log('city:' + city.titles);
   }, []);
 
   return(
