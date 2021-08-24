@@ -20,7 +20,8 @@ function refreshPage(){
 
 export default function CityInfor(props: Props):JSX.Element{
   let initCity : ICity = { titles: '' , id: '', room_id: '',is_pinned: false };
-  if( props.city ) initCity = props.city;
+  if(props.city) initCity = props.city;
+  console.log(initCity);
 
   const history = useHistory();
   const [city, setCity] = useState<ICity>(initCity);
@@ -114,7 +115,7 @@ export default function CityInfor(props: Props):JSX.Element{
 
   useEffect(()=>{
     setCity(initCity);
-  }, []);
+  }, [props]);
 
   return(
     <div className = "flex flew-row w-full h-full">
@@ -125,7 +126,7 @@ export default function CityInfor(props: Props):JSX.Element{
             type = 'text' 
             classname = 'py-2 mr-4 h-3/5 px-1'
             label = {{ value :'ID', position: 'top' }}
-            value = { props.city?.id }
+            value = { initCity.id }
             onChange ={(e)=>{
               setCity({ ...city, id : e.target.value });
             }}
@@ -136,7 +137,7 @@ export default function CityInfor(props: Props):JSX.Element{
             type = 'text' 
             classname = 'py-2 mr-4 h-3/5 px-1'
             label = {{ value :'Title', position: 'top' }}
-            value = { props.city?.titles }
+            value = { initCity?.titles }
             onChange ={(e)=>{
               setCity({ ...city, titles : e.target.value });
             }}
@@ -146,7 +147,7 @@ export default function CityInfor(props: Props):JSX.Element{
             type = 'text' 
             classname = 'py-2 mr-4 h-3/5 px-1'
             label = {{ value :'Room Id', position: 'top' }}
-            value = { props.city?.room_id }
+            value = { initCity?.room_id }
             onChange ={(e)=>{
               setCity({ ...city, room_id : e.target.value });
             }}
