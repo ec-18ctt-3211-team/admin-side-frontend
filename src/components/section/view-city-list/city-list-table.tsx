@@ -43,7 +43,7 @@ function ListOfCitiesTable(props: Props) {
             >
               <td className="border-r py-6 w-12">
                 <Link className="cursor-pointer" to={SITE_PAGES.VIEW_CITY_LIST.path + `/${item.id}`}>
-                  {index + props.currentPage * items_per_pages}
+                  {index + 1 + props.currentPage * items_per_pages}
                 </Link>
               </td>
               <td className="py-6">

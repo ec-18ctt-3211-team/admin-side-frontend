@@ -4,7 +4,10 @@ import { binSolid, InlineIcon } from 'utils/icon.utils';
 import ImageUploader from 'components/common/image-uploader/image-uploader';
 import { ICity } from 'interfaces/city.interface';
 import { ENDPOINT_URL } from 'constants/api.const';
-import { GET, POST, PUT } from 'utils/fetcher.utils';
+import { DELETE, GET, POST, PUT } from 'utils/fetcher.utils';
+import { DefaultListofRooms } from 'interfaces/room.interface';
+import { SITE_PAGES } from 'constants/pages.const';
+import { useHistory } from 'react-router';
 
 interface Props{
   type: 'new'| 'edit';
@@ -19,7 +22,9 @@ export default function CityInfor(props: Props):JSX.Element{
   let initCity : ICity = { titles: '' , id: '', room_id: '',is_pinned: false };
   if( props.city ) initCity = props.city;
 
+  const history = useHistory();
   const [city, setCity] = useState<ICity>(initCity);
+  const [file, setFile] = useState('');
 
   async function Add() {
     if (!city.titles || !city.id || !city.room_id) {
@@ -57,7 +62,6 @@ export default function CityInfor(props: Props):JSX.Element{
     };
     try{
       const response = await PUT(ENDPOINT_URL.PUT.updateACity(initCity.id), payload);
-      console.log(response);
       if(response.data.valid){
         window.alert('Update city successfully');
         refreshPage();
@@ -69,13 +73,48 @@ export default function CityInfor(props: Props):JSX.Element{
       console.log(error.response);
     }
   }
+  function Cancel(){
+    setCity(initCity);
+    refreshPage();
+  }
+
+  async function Delete() {
+    if(!initCity.id) return;
+    try{
+      const response = await DELETE(ENDPOINT_URL.DELETE.deleteACity(initCity.id));
+      if(response.data.valid){
+        window.alert('Delete city successfully');
+        history.push(SITE_PAGES.VIEW_CITY_LIST.path);
+      }
+      else window.alert('Unsuccess response');
+    }
+    catch (error: any){
+      window.alert('Sth wrong');
+      console.log(error.response);
+    }
+  }
+
+  async function submitFile() {
+    if(file === null) return;
+    const data = new FormData();
+    data.append('file', file);
+    //data.append("des", description);
+    try{
+      //const response = await POST(ENDPOINT_URL.POST.uploadImage(), data);
+      //if (response.data.valid) refreshPage();
+    }
+    catch{
+      console.log('1');
+    }
+  }
+
   const CheckBoxHandler = (e:any) =>{
-    setCity({ ...city, is_pinned: e.target.checked });
+    e.target.checked = !e.target.checked;
   };
 
   useEffect(()=>{
     setCity(initCity);
-  }, [initCity]);
+  }, []);
 
   return(
     <div className = "flex flew-row w-full h-full">
@@ -118,13 +157,12 @@ export default function CityInfor(props: Props):JSX.Element{
             classname = 'py-2 mr-4 h-3/5'
             label = {{ value :'Pinned', position: 'left' }}
             checked = {city.is_pinned}
-            onClick = {CheckBoxHandler}
             onChange = {(e)=>{
               setCity({ ...city, is_pinned : e.target.checked });
             }}
           />
         </div>
-        <div className= "mt-auto w-full flex flex-row items-center">
+        <div className= "mt-auto w-full flex flex-row justify-center">
           {(props.type === 'new')? 
             (<Button className="w-2/5 mx-1 h-6" onClick={Add}> 
               Add
@@ -133,12 +171,14 @@ export default function CityInfor(props: Props):JSX.Element{
             (<Button className="w-2/5 mx-1 h-6" onClick={Save}>
               Save
             </Button>)}
-          <Button className="w-2/5 mx-1 h-6" onClick={()=> setCity(initCity)}>
+          <Button className="w-2/5 mx-1 h-6" onClick={Cancel}>
             Cancel
           </Button>
-          <Button className="w-2/5 mx-1 h-6">
-            <InlineIcon icon = {binSolid} style={{ fontSize: 'inherit' }} />
-          </Button>
+          {props.type === 'edit' && 
+            <Button className="w-2/5 mx-1 h-6" onClick={Delete}>
+              <InlineIcon icon = {binSolid} style={{ fontSize: 'inherit' }} />
+            </Button>
+          }
         </div>
       </div>
       <div className = "flex flex-col items-center w-3/5 my-4">
@@ -146,6 +186,8 @@ export default function CityInfor(props: Props):JSX.Element{
           <ImageUploader 
             city = {city}
             setCity = {setCity}
+            file = {file}
+            setFile = {setFile}
           />
         </div>
       </div>

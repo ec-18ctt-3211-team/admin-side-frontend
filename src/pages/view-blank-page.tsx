@@ -14,6 +14,9 @@ export default function ViewBlankPage(props: Props): JSX.Element{
   else if(props.path === SITE_PAGES.VIEW_A_HOST.path){
     type = 'Host ID';
   }
+  else if(props.path === SITE_PAGES.VIEW_AN_ORDER.path){
+    type = 'Order ID';
+  }
   else type = 'Customer ID';
   
   return(      
@@ -21,6 +24,7 @@ export default function ViewBlankPage(props: Props): JSX.Element{
       <Layout>
         <div className =' bg-white rounded-lg border-b p-2 h-full'>
           <Searchbar path={props.path} type={type}></Searchbar>
+          <div className='px-14 text-sm text-gray-400'>Press Enter to search</div>
         </div>
       </Layout>
     </div>

@@ -19,3 +19,7 @@ export const POST = (url: string, data?: any) => {
 export const PUT = (url: string, data?: any) => {
   return axios.put(BASE + url, data);
 };
+
+export const DELETE = (url: string, data?: any) => {
+  return axios.delete(BASE + url, data);
+};

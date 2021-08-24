@@ -5,11 +5,23 @@ import { IUserInfo } from 'interfaces/user.interface';
 import { useEffect, useState } from 'react';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { BASE, POST } from 'utils/fetcher.utils';
+import Loading from 'components/common/loading';
 
 
 export default function AdminLogin(){
   const [userInfo, setUserInfo] = useState<IUserInfo>({ userID: '', username: '', phone_number: '', email: '', password: '' });
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
+  function LoadPage(){
+    history.push({
+      pathname: SITE_PAGES.VIEW_A_ROOM.path,
+      search: '',  
+      state: { 
+        update: true, 
+      },
+    });
+  }
 
   async function login() {
     if (!userInfo.password) {
@@ -22,21 +34,25 @@ export default function AdminLogin(){
       isAdmin: true,
     };
     try{
+      setLoading(true);
       const response = await POST(ENDPOINT_URL.POST.login, payload);
+      console.log(response);
       if (response.data.valid) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userID', response.data.userID);
+        localStorage.setItem('userID', response.data.userId);
         setUserInfo({
           ...userInfo,
           userID: response.data.userID,
           username: response.data.name,
           ava: BASE + response.data.ava,
         });
-        checkAuthorized();
+        LoadPage();
       }
     }
     catch (error: any){
-      window.alert(error.response.data.message);
+      window.alert('Log in not succcessful');
+    }
+    finally{
+      setLoading(false);
     }
   }
   
@@ -55,16 +71,20 @@ export default function AdminLogin(){
     } else return false;
   }
   useEffect(() => {
-    checkAuthorized();
+    //checkAuthorized();
   }, [localStorage]);
   return(
     <>
-      <Form 
-        type='AdminLogIn' 
-        title='Log In' 
-        userInfo = {userInfo}
-        setUserInfo = {setUserInfo}
-        onClick={login}/>
+      {!loading ?(
+        <Form 
+          type='AdminLogIn' 
+          title='Log In' 
+          userInfo = {userInfo}
+          setUserInfo = {setUserInfo}
+          onClick={login}/>
+      ):(
+        <Loading />
+      )}      
     </>
   );
 }
