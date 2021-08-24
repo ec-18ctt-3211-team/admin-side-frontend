@@ -1,7 +1,7 @@
 export interface ICity{
   titles: string;
   id: string;
-  thumbnail?: FormData;
+  thumbnail?: string;
   is_pinned?: boolean;
   room_id: string;
 }

@@ -35,19 +35,11 @@ export const SITE_PAGES = {
     label: 'view city list',
     path:'/view_city_list',
   },
-  /*
-  LIST_OF_ROOMS:{
-    path: '/'
+  VIEW_AN_ORDER:{
+    label: 'view an order',
+    path:'/view_an_order',
   },
-  USER_PROFILE:{
-    path:'/'
-  },
-  BOOKING_HISTORY:{
-    path:'/'
-  },
-  ROOMS_OF_HOST:{
-    path:'/'
-  },*/
+
   BOOKING_HISTORY:{
     path:'/'
   },

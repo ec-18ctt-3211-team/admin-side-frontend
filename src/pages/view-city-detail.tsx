@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { ICity } from 'interfaces/city.interface';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { GET } from 'utils/fetcher.utils';
+import Loading from 'components/common/loading';
 
 const newCity = 'new';
 
@@ -13,11 +14,13 @@ export default function ViewCityDetails(): JSX.Element{
   const path = SITE_PAGES.VIEW_CITY_LIST.path;
   const location = useLocation();
   const state = location.pathname.substring(path.length + 1);
+  const [loading, setLoading] = useState(false);
 
   const [city, setCity] = useState<ICity>({ titles: '' , id: '', room_id: '',is_pinned: false });
   async function fetchCity() {
     if(state === newCity) return;
     try{
+      setLoading(true);
       const response = await GET(
         ENDPOINT_URL.GET.getCityByID(state),
       );
@@ -37,18 +40,25 @@ export default function ViewCityDetails(): JSX.Element{
     catch {
       window.alert('Error');
     }
+    finally{
+      setLoading(false);
+    }
   }
   useEffect(() => {
     fetchCity();
   }, []);
-
+  console.log(loading);
   return(
     <Layout>
-      <div className = "bg-white rounded-lg h-full">
-        {(state === newCity) ? 
-          <CityInfor type='new'/> :  
-          <CityInfor type='edit' id={ state } city={city}/>}
-      </div>
+      {!loading ? (
+        <div className = "bg-white rounded-lg h-full">
+          {(state === newCity) ? 
+            <CityInfor type='new'/> :  
+            <CityInfor type='edit' id={ state } city={city}/>}
+        </div>
+      ):(
+        <Loading/>
+      )}
     </Layout>  
   );
 }

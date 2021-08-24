@@ -4,6 +4,7 @@ export const ENDPOINT_URL = {
     getRoomByHostID: (hostid: string) => `/rooms/host/${hostid}`,
     getHostsByID: (id: string) => `/customer/${id}`,
     getCustomerByID: (id: string) => `/customer/${id}`,
+    getOrderByID: (id: string) => `/order/${id}`,
     getOrderByCustomerID: (userid: string) => `/order/customer/${userid}`,
     getAllCity: () => '/city',
     getCityByID: (id: string) => `/city/${id}`,
@@ -14,5 +15,8 @@ export const ENDPOINT_URL = {
   },
   PUT: {
     updateACity: (id: string) => `/city/${id}`,
+  },
+  DELETE: {
+    deleteACity: (id: string) => `/city/${id}`,
   }
 };

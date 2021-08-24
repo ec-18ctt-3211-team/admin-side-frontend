@@ -4,6 +4,7 @@ import { IBookingTable } from 'interfaces/user.interface';
 import { SITE_PAGES } from 'constants/pages.const';
 import './list-of-rooms-table.css';
 import { IRoomDetail } from 'interfaces/room.interface';
+import { Link } from 'react-router-dom';
 
 interface IRoom{
   ID?: string;
@@ -80,9 +81,11 @@ function ListOfRoomsTable(props: Props) {
                   : 'border-b'
               }
             >
-              <td className="border-r py-6 w-12">{index + props.currentPage * items_per_pages}</td>
+              <td className="border-r py-6 w-12">{index + 1 + props.currentPage * items_per_pages}</td>
               <td className="py-6">
-                {item.Name}
+                <Link className="cursor-pointer" to={SITE_PAGES.VIEW_A_ROOM.path + `/${item.ID}`}>
+                  {item.Name}
+                </Link>
               </td>
             </tr>
           );

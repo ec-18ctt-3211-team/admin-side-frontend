@@ -20,7 +20,11 @@ function App() {
         <Route exact path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewBlankPage 
             path={SITE_PAGES.VIEW_A_CUSTOMER.path}/>
-        </Route>  
+        </Route> 
+        <Route exact path={SITE_PAGES.VIEW_AN_ORDER.path}>
+          <Pages.ViewBlankPage 
+            path={SITE_PAGES.VIEW_AN_ORDER.path}/>
+        </Route> 
         <Route exact path={SITE_PAGES.VIEW_COUPON_LIST.path}>
           <Pages.ViewCouponList/>
         </Route>  
@@ -35,6 +39,9 @@ function App() {
         </Route>
         <Route path={SITE_PAGES.VIEW_A_CUSTOMER.path}>
           <Pages.ViewACustomer/>
+        </Route>
+        <Route path={SITE_PAGES.VIEW_AN_ORDER.path}>
+          <Pages.ViewAnOrder/>
         </Route>
         <Route path={SITE_PAGES.VIEW_BLANK_PAGE.path}>
           <Pages.ViewBlankPage path="/" />

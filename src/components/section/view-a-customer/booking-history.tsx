@@ -89,9 +89,11 @@ function BookingTable(props: Props) {
                   : 'border-b'
               }
             >
-              <td className="border-r py-6">{index + props.currentPage * items_per_pages}</td>
+              <td className="border-r py-6">{index + 1 + props.currentPage * items_per_pages}</td>
               <td className="border-r py-6">
-                <Link to={SITE_PAGES.BOOKING_HISTORY.path}>{item.roomID}</Link>
+                <Link className="cursor-pointer" to={SITE_PAGES.VIEW_AN_ORDER.path + `/${item.orderID}`}>
+                  {item.roomID}
+                </Link>
               </td>
               <td className={['py-6', item.order_status.color].join(' ')}>
                 {item.order_status.label}

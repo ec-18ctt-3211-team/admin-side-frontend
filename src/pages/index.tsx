@@ -7,6 +7,7 @@ import ViewCouponList from './view-coupon-list';
 import ViewCouponDetails from './view-coupon-detail';
 import ViewCityList from './view-city-list';
 import ViewCityDetails from './view-city-detail';
+import ViewAnOrder from './view-an-order';
 
 export const Pages = {
   AdminLogin,
@@ -18,5 +19,6 @@ export const Pages = {
   ViewCouponDetails,
   ViewCityList,
   ViewCityDetails,
+  ViewAnOrder,
 };
 
