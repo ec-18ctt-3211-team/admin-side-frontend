@@ -25,9 +25,6 @@ function App() {
           <Pages.ViewBlankPage 
             path={SITE_PAGES.VIEW_AN_ORDER.path}/>
         </Route> 
-        <Route exact path={SITE_PAGES.VIEW_COUPON_LIST.path}>
-          <Pages.ViewCouponList/>
-        </Route>  
         <Route exact path={SITE_PAGES.VIEW_CITY_LIST.path}>
           <Pages.ViewCityList/>
         </Route>  
@@ -45,9 +42,6 @@ function App() {
         </Route>
         <Route path={SITE_PAGES.VIEW_BLANK_PAGE.path}>
           <Pages.ViewBlankPage path="/" />
-        </Route>
-        <Route path={SITE_PAGES.VIEW_COUPON_LIST.path}>
-          <Pages.ViewCouponDetails />
         </Route>
         <Route path={SITE_PAGES.VIEW_CITY_LIST.path}>
           <Pages.ViewCityDetails />

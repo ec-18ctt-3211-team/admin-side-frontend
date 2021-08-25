@@ -63,3 +63,11 @@ export const ROOMS: IImageTag[] = [
   { _id: 'homestay5', path: '/images/homestays/homestay5.jpg' },
   { _id: 'homestay6', path: '/images/homestays/homestay6.jpg' },
 ];
+export const DEFAULT_ROOMS: IImageTag[] = [
+  { _id: 'homestay1', path: '/images/homestays/homestay1.jpg' },
+  { _id: 'homestay2', path: '/images/homestays/homestay2.jpg' },
+  { _id: 'homestay3', path: '/images/homestays/homestay3.jpg' },
+  { _id: 'homestay4', path: '/images/homestays/homestay4.jpg' },
+  { _id: 'homestay5', path: '/images/homestays/homestay5.jpg' },
+  { _id: 'homestay6', path: '/images/homestays/homestay6.jpg' },
+];

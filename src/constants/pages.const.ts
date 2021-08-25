@@ -23,10 +23,6 @@ export const SITE_PAGES = {
     label:'view a customer',
     path:'/view_a_customer',
   },
-  VIEW_COUPON_LIST:{
-    label: 'view coupon list',
-    path:'/view_coupon_list',
-  },
   VIEW_COUPON_DETAIL:{
     label: 'view coupon detail',
     path:'/view_coupon_detail',

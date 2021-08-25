@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Pagination } from 'components/common';
-import { IImageTag } from 'interfaces/image-tag.interface';
 import { Link } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 import './city-list-table.css';

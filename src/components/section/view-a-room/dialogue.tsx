@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { IRoomDetail } from 'interfaces/room.interface';
 import './dialogue.css';
 import { IHostDetail } from 'interfaces/host.interface';
+import { Link } from 'react-router-dom';
 
 interface Props {
   detail: IRoomDetail;
@@ -27,11 +28,14 @@ export default function Dialogue(props: Props): JSX.Element {
 
   return (
     <div className="border rounded-md w-full flex flex-col items-center px-2 ml-1.5">
-      <div className="w-full flex justify-center my-1">{props.hostdetail.host_name}</div>
-      <div className="w-full flex justify-center my-1">{props.hostdetail._id}</div>
-      <div className="w-full flex flex-row my-1">
+      <div className="w-full flex justify-center my-1 font-semibold hover:text-brown-500">
+        <Link className="cursor-pointer" to={SITE_PAGES.VIEW_A_HOST.path + `/${props.hostdetail._id}`}>
+          {props.hostdetail._id}
+        </Link>
+      </div>
+      <div className="w-full flex flex-row my-2">
         <div>{props.detail.room_type}</div>
-        <div className='ml'>{props.detail.total_bedrooms} bedrooms</div>
+        <div className='ml'>{props.detail.max_guest} guests</div>
       </div>
       <div className="w-full flex justify-center my-2">${props.detail.normal_price} per NIGHT</div>
     </div>
