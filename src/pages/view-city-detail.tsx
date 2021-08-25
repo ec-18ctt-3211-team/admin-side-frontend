@@ -25,13 +25,13 @@ export default function ViewCityDetails(): JSX.Element{
         ENDPOINT_URL.GET.getCityByID(state),
       );
       if(response.status == 200){
-        if(response.data.valid === false || response.data.customer === null) {
+        if(response.data.valid === false ) {
           return;
         }
         setCity({ ...city,
           titles: response.data.city[0].titles,
           id: response.data.city[0].id,
-          thumbnail: response.data.city[0].thumbnail,
+          thumbnail: response.data.city[0].thumnail,
           is_pinned: response.data.city[0].is_pinned,
           room_id: response.data.city[0].room_id,
         });
@@ -47,7 +47,7 @@ export default function ViewCityDetails(): JSX.Element{
   useEffect(() => {
     fetchCity();
   }, []);
-  console.log(loading);
+
   return(
     <Layout>
       {!loading ? (

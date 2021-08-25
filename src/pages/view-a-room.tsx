@@ -8,24 +8,34 @@ import { IRoomDetail } from 'interfaces/room.interface';
 import { IHostDetail } from 'interfaces/host.interface';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Loading from 'components/common/loading';
+import { DEFAULT_ROOMS, ROOMS } from 'constants/images.const';
 
 export default function ViewARoom(): JSX.Element{
   const location = useLocation();
   const path = location.pathname.split('/');
   const keyword = path[path.length - 1];
-  //console.log('dasd: '+ keyword);
 
+  const [loading, setLoading] = useState(false);
   const [roomDetails, setRoomDetails] = useState<IRoomDetail>();
   const [hostDetails, setHostDetails] = useState<IHostDetail>();
 
   async function fetchRoom() {
-    const response = await GET(ENDPOINT_URL.GET.getRoomsByID(keyword));
-    if(response.status == 200){
-      setRoomDetails(response.data.room);
-      setHostDetails({
-        _id: response.data.room.host_id,
-        host_name: 'Luxury house',
-      });
+    try{
+      setLoading(true);
+      const response = await GET(ENDPOINT_URL.GET.getRoomsByID(keyword));
+      if(response.status == 200){
+        setRoomDetails(response.data.room);
+        setHostDetails({
+          _id: response.data.room.host_id,
+        });
+      }
+    }
+    catch{
+      window.alert('Something wrong');
+    }
+    finally{
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -34,24 +44,31 @@ export default function ViewARoom(): JSX.Element{
 
   return(
     <Layout>
-      <div className = 'bg-white rounded-lg'>
+      {!loading ? (<div className = 'bg-white rounded-lg'>
         <div className='border-b px-4 py-2'>
           <p className='font-bold text-lg'>ID @{roomDetails?._id}</p>
         </div>
         {roomDetails && roomDetails.photos && hostDetails ?(
-          <div>
+          <div className='h-full'>
             <div className='py-4'>
-              {roomDetails?.photos.length > 0 && (
+              {roomDetails?.photos.length > 0 ? (
                 <ImageSlider
                   limit={3}
                   images={roomDetails?.photos.map((photo) => {
                     return { ...photo, path: BASE + photo.path };
                   })}
                 />
+              ) : (
+                <ImageSlider
+                  limit={3}
+                  images={DEFAULT_ROOMS.map((photo) => {
+                    return { ...photo, path: photo.path };
+                  })}
+                />
               )}
               <DivPx size={48} />
             </div>
-            <div className="w-full flex lg:flex-row">       
+            <div className="w-full flex lg:flex-row h-full">       
               <div className="w-2/3 lg:w-2/5">
                 <Dialogue detail={roomDetails} hostdetail= {hostDetails} />
               </div>
@@ -61,10 +78,12 @@ export default function ViewARoom(): JSX.Element{
             </div> 
           </div>
         ): (
-          <div>Loading</div>
-        )}
-        
+          <div>No result</div>
+        )}  
       </div>
+      ):(
+        <Loading/>
+      )}
     </Layout>
   );
 }

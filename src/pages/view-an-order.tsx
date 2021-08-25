@@ -4,7 +4,6 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { DefaultOrder, IOrder } from 'interfaces/order.interface';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { getDateString } from 'utils/datetime.utils';
 import { GET } from 'utils/fetcher.utils';
 
 export default function ViewAnOrder(): JSX.Element {

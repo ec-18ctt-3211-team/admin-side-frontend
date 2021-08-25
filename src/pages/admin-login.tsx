@@ -49,30 +49,13 @@ export default function AdminLogin(){
       }
     }
     catch (error: any){
-      window.alert('Log in not succcessful');
+      window.alert('Log in unsucccessful');
     }
     finally{
       setLoading(false);
     }
   }
   
-  function checkAuthorized(){
-    console.log('Check Author');
-    const token = localStorage.getItem('token');
-    if (token) {
-      history.push({
-        pathname: SITE_PAGES.VIEW_A_ROOM.path,
-        search: '',  
-        state: { 
-          update: true, 
-        },
-      });
-      return true;
-    } else return false;
-  }
-  useEffect(() => {
-    //checkAuthorized();
-  }, [localStorage]);
   return(
     <>
       {!loading ?(

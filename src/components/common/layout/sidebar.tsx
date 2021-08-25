@@ -46,7 +46,6 @@ export default function Sidebar(): JSX.Element {
       <Menu data={SITE_PAGES.VIEW_A_HOST} />
       <Menu data={SITE_PAGES.VIEW_A_CUSTOMER} />
       <Menu data={SITE_PAGES.VIEW_AN_ORDER} />
-      <Menu data={SITE_PAGES.VIEW_COUPON_LIST} />
       <Menu data={SITE_PAGES.VIEW_CITY_LIST} />
       <div className="mt-auto flex justify-evenly items-center px-4 py-2 select-none cursor-pointer hover:text-brown-500 hover:text-lg">
         <Icon icon={logoutOutline} className="text-2xl" />

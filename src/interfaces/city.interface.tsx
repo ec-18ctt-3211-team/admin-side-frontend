@@ -3,5 +3,5 @@ export interface ICity{
   id: string;
   thumbnail?: string;
   is_pinned?: boolean;
-  room_id: string;
+  room_id?: string;
 }

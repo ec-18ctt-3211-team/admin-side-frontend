@@ -5,7 +5,6 @@ import ImageUploader from 'components/common/image-uploader/image-uploader';
 import { ICity } from 'interfaces/city.interface';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { DELETE, GET, POST, PUT } from 'utils/fetcher.utils';
-import { DefaultListofRooms } from 'interfaces/room.interface';
 import { SITE_PAGES } from 'constants/pages.const';
 import { useHistory } from 'react-router';
 
@@ -21,23 +20,23 @@ function refreshPage(){
 export default function CityInfor(props: Props):JSX.Element{
   let initCity : ICity = { titles: '' , id: '', room_id: '',is_pinned: false };
   if(props.city) initCity = props.city;
-  console.log(initCity);
 
   const history = useHistory();
   const [city, setCity] = useState<ICity>(initCity);
   const [file, setFile] = useState('');
 
   async function Add() {
-    if (!city.titles || !city.id || !city.room_id) {
-      window.alert('Please fulfill all fields.');
+    if (!city.titles || !city.id ) {
+      window.alert('Please fulfill Title and ID fields.');
       return;
     }
     const payload = {
       titles: city.titles,
       id: city.id,
       is_pinned: city.is_pinned,
-      room_id: city.room_id,
+      room_id: city.room_id ? city.room_id : null,
     };
+    
     try{
       const response = await POST(ENDPOINT_URL.POST.createACity, payload);
       console.log(response);
@@ -46,32 +45,41 @@ export default function CityInfor(props: Props):JSX.Element{
       }
       else window.alert('Unsuccess response');
     }
-    catch{
+    catch(error: any){
+      console.log(error.response);
       window.alert('Sth wrong');
+    }
+    finally{
+      refreshPage();
     }
   }
   async function Save() {
-    if (!city.titles || !city.id || !city.room_id) {
-      window.alert('Please fulfill all fields.');
+    if (!city.titles || !city.id ) {
+      window.alert('Please fulfill Title and ID fields.');
       return;
     }
-    const payload = {
+    let payload1;
+    payload1 = {
       titles: city.titles,
       id: city.id,
       is_pinned: city.is_pinned,
-      room_id: city.room_id,
     };
+    if(city.room_id) payload1 = { ...payload1, room_id: city.room_id ? city.room_id : null };
+    
     try{
-      const response = await PUT(ENDPOINT_URL.PUT.updateACity(initCity.id), payload);
+      const response = await PUT(ENDPOINT_URL.PUT.updateACity(initCity.id), payload1);
+      console.log(response);
       if(response.data.valid){
         window.alert('Update city successfully');
-        refreshPage();
       }
       else window.alert('Unsuccess response');
     }
     catch (error: any){
-      window.alert('Sth wrong');
       console.log(error.response);
+      window.alert('Sth wrong');
+    }
+    finally{
+      refreshPage();
     }
   }
   function Cancel(){
@@ -94,24 +102,6 @@ export default function CityInfor(props: Props):JSX.Element{
       console.log(error.response);
     }
   }
-
-  async function submitFile() {
-    if(file === null) return;
-    const data = new FormData();
-    data.append('file', file);
-    //data.append("des", description);
-    try{
-      //const response = await POST(ENDPOINT_URL.POST.uploadImage(), data);
-      //if (response.data.valid) refreshPage();
-    }
-    catch{
-      console.log('1');
-    }
-  }
-
-  const CheckBoxHandler = (e:any) =>{
-    e.target.checked = !e.target.checked;
-  };
 
   useEffect(()=>{
     setCity(initCity);
@@ -183,14 +173,14 @@ export default function CityInfor(props: Props):JSX.Element{
         </div>
       </div>
       <div className = "flex flex-col items-center w-3/5 my-4">
-        <div className="w-full ">
+        {/*<div className="w-full ">
           <ImageUploader 
             city = {city}
             setCity = {setCity}
             file = {file}
             setFile = {setFile}
           />
-        </div>
+        </div>*/}
       </div>
     </div>
   );
