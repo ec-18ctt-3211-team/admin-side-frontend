@@ -49,7 +49,7 @@ export default function ViewAnOrder(): JSX.Element {
               <div className="uppercase font-bold text-base px-4 pt-4 pb-2 text-brown-400">
                 Customer ID:
               </div>
-              <div className="px-8 border-b">
+              <div className="px-8 border-b text-center">
                 <Link className="cursor-pointer hover:text-gray-600" 
                   to={SITE_PAGES.VIEW_A_CUSTOMER.path + `/${order.customer_id}`}>
                   {order.customer_id}
@@ -83,7 +83,7 @@ export default function ViewAnOrder(): JSX.Element {
               <div className="uppercase font-bold text-base px-4 pt-4 pb-2 text-brown-400">
                 Room ID:
               </div>
-              <div className="px-8 border-b">
+              <div className="px-8 border-b text-center">
                 <Link className="cursor-pointer hover:text-gray-600" 
                   to={SITE_PAGES.VIEW_A_ROOM.path + `/${order.room_id}`}>
                   {order.room_id}
@@ -92,7 +92,7 @@ export default function ViewAnOrder(): JSX.Element {
               <div className="uppercase font-bold text-base px-4 pt-4 pb-2 text-brown-400">
                 Host ID:
               </div>
-              <div className="px-8 border-b">
+              <div className="px-8 border-b text-center">
                 <Link className="cursor-pointer hover:text-gray-600" 
                   to={SITE_PAGES.VIEW_A_HOST.path + `/${order.host_id}`}>
                   {order.host_id}
