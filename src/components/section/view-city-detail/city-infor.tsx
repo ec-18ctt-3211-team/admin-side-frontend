@@ -23,18 +23,19 @@ export default function CityInfor(props: Props):JSX.Element{
 
   const history = useHistory();
   const [city, setCity] = useState<ICity>(initCity);
-  const [file, setFile] = useState('');
+  
 
   async function Add() {
-    if (!city.titles || !city.id ) {
-      window.alert('Please fulfill Title and ID fields.');
+    if (!city.titles || !city.id || !city.thumbnail ) {
+      window.alert('Please fulfill all fields.');
       return;
     }
     const payload = {
       titles: city.titles,
-      id: city.id,
+      id: city.id.trim(),
       is_pinned: city.is_pinned,
       room_id: city.room_id ? city.room_id : null,
+      thumnail: city.thumbnail,
     };
     
     try{
@@ -54,15 +55,16 @@ export default function CityInfor(props: Props):JSX.Element{
     }
   }
   async function Save() {
-    if (!city.titles || !city.id ) {
-      window.alert('Please fulfill Title and ID fields.');
+    if (!city.titles || !city.id || !city.thumbnail ) {
+      window.alert('Please fulfill all fields.');
       return;
     }
     let payload1;
     payload1 = {
       titles: city.titles,
-      id: city.id,
+      id: city.id.trim(),
       is_pinned: city.is_pinned,
+      thumnail: city.thumbnail,
     };
     if(city.room_id) payload1 = { ...payload1, room_id: city.room_id ? city.room_id : null };
     
@@ -173,14 +175,12 @@ export default function CityInfor(props: Props):JSX.Element{
         </div>
       </div>
       <div className = "flex flex-col items-center w-3/5 my-4">
-        {/*<div className="w-full ">
+        <div className="w-full mt-auto">
           <ImageUploader 
             city = {city}
             setCity = {setCity}
-            file = {file}
-            setFile = {setFile}
           />
-        </div>*/}
+        </div>
       </div>
     </div>
   );

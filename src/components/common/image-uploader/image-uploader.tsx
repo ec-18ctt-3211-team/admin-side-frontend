@@ -1,5 +1,5 @@
 import { ICity } from 'interfaces/city.interface';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface IImageInfo{
   src?: string;
@@ -8,42 +8,67 @@ interface IImageInfo{
 interface Props{
   city: ICity;
   setCity: (city: ICity) => void;
-  file: any;
-  setFile: (file: any) => void;
+  file?: any;
+  setFile?: (file: any) => void;
   img?: string;
 }
 
 export default function ImageUploader(props: Props): JSX.Element{
-  const initImage : IImageInfo = { src : '' };
-  if(props.img) initImage.src = props.img;
 
-  const [image, setImage] = useState<IImageInfo>(initImage);
+  const [preview, setPreview] = useState<string | null>(
+    props.city.thumbnail? props.city.thumbnail: '',
+  );
+  const [message, setMessage] = useState('Choose image to Upload');
+  const uploadImage = useRef<HTMLInputElement>(null);
 
-  const fileSelectedHandler = (e:any) =>{
-    const link = URL.createObjectURL(e.target.files[0]);
-    setImage({ ...image, src:link });
-
-    props.setFile(e.target.files[0]);
-    props.setCity({ ...props.city, thumbnail: link });
-  };
+  function fileSelectedHandler() {
+    const uploaded = uploadImage.current;
+    
+    if (uploaded?.files) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setPreview(reader.result as string);
+          props.setCity({ ...props.city, thumbnail: reader.result as string });
+        }
+      };
+      if (uploaded.files[0] && uploaded.files[0].size <= 1024 * 1024) {
+        reader.readAsDataURL(uploaded.files[0]);
+      } else {
+        setMessage('Image must be under 1MB');
+        setPreview(null);
+        props.setCity({ ...props.city, thumbnail: '' });
+      }
+    }
+  }
+  console.log(props.file);
 
   return(
     <div className='w-full flex flex-col items-center'>
       <div className='my-4 mx-1'>
-        {image.src ? (
+        {preview ? (
           <img
-            src = {image?.src}
+            src = {preview}
+            alt = {'Should be an image'}
             className = 'h-80 w-full shadow object-cover'
           />
         ):(
-          <div className = 'h-80 w-full'></div>
+          <div className = 'h-80 w-full text-brown-100 flex justify-center items-center'>
+            <div>
+              {message}
+            </div>
+          </div>
         )}
       </div>
-      <div className='mt-auto'>
+      <div className='mt-auto w-20 border'>
         <input 
           type='file' 
           accept="image/png, image/jpeg" 
-          onChange={fileSelectedHandler}/>
+          ref={uploadImage}
+          onClick={() => {
+            uploadImage.current?.addEventListener('change', fileSelectedHandler);
+          }}
+        />
       </div>
     </div>
   );
