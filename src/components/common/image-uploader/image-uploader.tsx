@@ -1,10 +1,6 @@
 import { ICity } from 'interfaces/city.interface';
 import { useEffect, useRef, useState } from 'react';
 
-interface IImageInfo{
-  src?: string;
-}
-
 interface Props{
   city: ICity;
   setCity: (city: ICity) => void;

@@ -6,6 +6,7 @@ import CityList from 'components/section/view-city-list/city-list-table';
 import { GET } from 'utils/fetcher.utils';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { ICity } from 'interfaces/city.interface';
+import Loading from 'components/common/loading';
 
 const items_per_pages = 6 ;
 
@@ -15,9 +16,11 @@ export default function ViewCityList(): JSX.Element{
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState<number>(10);
+  const [loading, setLoading] = useState(false);
 
   async function fetchCity() {
     try{
+      setLoading(true);
       const response = await GET(
         ENDPOINT_URL.GET.getAllCity(),
       );
@@ -34,6 +37,9 @@ export default function ViewCityList(): JSX.Element{
     catch {
       console.log('False');
       setCity([{ id: '', titles: '', room_id: '' }]);
+    }
+    finally{
+      setLoading(false);
     }
   }
 
@@ -64,7 +70,13 @@ export default function ViewCityList(): JSX.Element{
           }}>New City</Button>
         </div>
         <div>
-          <CityList cityList={currentCity} currentPage={currentPage}/>
+          {!loading ? (
+            <CityList cityList={currentCity} currentPage={currentPage}/>
+          ): (
+            <div className='h-80'>
+              <Loading />
+            </div>
+          )}
         </div>
         <div className="mt-auto">
           <Pagination

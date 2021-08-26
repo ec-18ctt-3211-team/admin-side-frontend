@@ -7,6 +7,7 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { DELETE, GET, POST, PUT } from 'utils/fetcher.utils';
 import { SITE_PAGES } from 'constants/pages.const';
 import { useHistory } from 'react-router';
+import Loading from 'components/common/loading';
 
 interface Props{
   type: 'new'| 'edit';
@@ -23,6 +24,7 @@ export default function CityInfor(props: Props):JSX.Element{
 
   const history = useHistory();
   const [city, setCity] = useState<ICity>(initCity);
+  const [loading, setLoading] = useState(false);
   
 
   async function Add() {
@@ -39,6 +41,7 @@ export default function CityInfor(props: Props):JSX.Element{
     };
     
     try{
+      setLoading(true);
       const response = await POST(ENDPOINT_URL.POST.createACity, payload);
       console.log(response);
       if(response.data.valid){
@@ -51,6 +54,7 @@ export default function CityInfor(props: Props):JSX.Element{
       window.alert('Sth wrong');
     }
     finally{
+      setLoading(false);
       refreshPage();
     }
   }
@@ -69,6 +73,7 @@ export default function CityInfor(props: Props):JSX.Element{
     if(city.room_id) payload1 = { ...payload1, room_id: city.room_id ? city.room_id : null };
     
     try{
+      setLoading(true);
       const response = await PUT(ENDPOINT_URL.PUT.updateACity(initCity.id), payload1);
       console.log(response);
       if(response.data.valid){
@@ -81,6 +86,7 @@ export default function CityInfor(props: Props):JSX.Element{
       window.alert('Sth wrong');
     }
     finally{
+      setLoading(false);
       refreshPage();
     }
   }
@@ -92,6 +98,7 @@ export default function CityInfor(props: Props):JSX.Element{
   async function Delete() {
     if(!initCity.id) return;
     try{
+      setLoading(true);
       const response = await DELETE(ENDPOINT_URL.DELETE.deleteACity(initCity.id));
       if(response.data.valid){
         window.alert('Delete city successfully');
@@ -103,6 +110,9 @@ export default function CityInfor(props: Props):JSX.Element{
       window.alert('Sth wrong');
       console.log(error.response);
     }
+    finally{
+      setLoading(false);
+    }
   }
 
   useEffect(()=>{
@@ -110,78 +120,84 @@ export default function CityInfor(props: Props):JSX.Element{
   }, [props]);
 
   return(
-    <div className = "flex flew-row w-full h-full">
-      <div className = "flex flex-col items-center my-4 border-r w-2/5">
-        <div className = "flex flex-col mx-14">
-          <Input
-            border = 'full' 
-            type = 'text' 
-            classname = 'py-2 mr-4 h-3/5 px-1'
-            label = {{ value :'ID', position: 'top' }}
-            value = { initCity.id }
-            onChange ={(e)=>{
-              setCity({ ...city, id : e.target.value });
-            }}
-            disable = {props.type === 'edit'}
-          />
-          <Input
-            border = 'full' 
-            type = 'text' 
-            classname = 'py-2 mr-4 h-3/5 px-1'
-            label = {{ value :'Title', position: 'top' }}
-            value = { initCity?.titles }
-            onChange ={(e)=>{
-              setCity({ ...city, titles : e.target.value });
-            }}
-          />
-          <Input
-            border = 'full' 
-            type = 'text' 
-            classname = 'py-2 mr-4 h-3/5 px-1'
-            label = {{ value :'Room Id', position: 'top' }}
-            value = { initCity?.room_id }
-            onChange ={(e)=>{
-              setCity({ ...city, room_id : e.target.value });
-            }}
-          />
-          <Input
-            border = 'none' 
-            type = 'checkbox' 
-            classname = 'py-2 mr-4 h-3/5'
-            label = {{ value :'Pinned', position: 'left' }}
-            checked = {city.is_pinned}
-            onChange = {(e)=>{
-              setCity({ ...city, is_pinned : e.target.checked });
-            }}
-          />
+    <>
+      {!loading ? (
+        <div className = "flex flew-row w-full h-full">
+          <div className = "flex flex-col items-center my-4 border-r w-2/5">
+            <div className = "flex flex-col mx-14">
+              <Input
+                border = 'full' 
+                type = 'text' 
+                classname = 'py-2 mr-4 h-3/5 px-1'
+                label = {{ value :'ID', position: 'top' }}
+                value = { initCity.id }
+                onChange ={(e)=>{
+                  setCity({ ...city, id : e.target.value });
+                }}
+                disable = {props.type === 'edit'}
+              />
+              <Input
+                border = 'full' 
+                type = 'text' 
+                classname = 'py-2 mr-4 h-3/5 px-1'
+                label = {{ value :'Title', position: 'top' }}
+                value = { initCity?.titles }
+                onChange ={(e)=>{
+                  setCity({ ...city, titles : e.target.value });
+                }}
+              />
+              <Input
+                border = 'full' 
+                type = 'text' 
+                classname = 'py-2 mr-4 h-3/5 px-1'
+                label = {{ value :'Room Id', position: 'top' }}
+                value = { initCity?.room_id }
+                onChange ={(e)=>{
+                  setCity({ ...city, room_id : e.target.value });
+                }}
+              />
+              <Input
+                border = 'none' 
+                type = 'checkbox' 
+                classname = 'py-2 mr-4 h-3/5'
+                label = {{ value :'Pinned', position: 'left' }}
+                checked = {city.is_pinned}
+                onChange = {(e)=>{
+                  setCity({ ...city, is_pinned : e.target.checked });
+                }}
+              />
+            </div>
+            <div className= "mt-auto w-full flex flex-row justify-center">
+              {(props.type === 'new')? 
+                (<Button className="w-2/5 mx-1 h-6" onClick={Add}> 
+                  Add
+                </Button>)
+                : 
+                (<Button className="w-2/5 mx-1 h-6" onClick={Save}>
+                  Save
+                </Button>)}
+              <Button className="w-2/5 mx-1 h-6" onClick={Cancel}>
+                Cancel
+              </Button>
+              {props.type === 'edit' && 
+                <Button className="w-2/5 mx-1 h-6" onClick={Delete}>
+                  <InlineIcon icon = {binSolid} style={{ fontSize: 'inherit' }} />
+                </Button>
+              }
+            </div>
+          </div>
+          <div className = "flex flex-col items-center w-3/5 my-4">
+            <div className="w-full mt-auto">
+              <ImageUploader 
+                city = {city}
+                setCity = {setCity}
+              />
+            </div>
+          </div>
         </div>
-        <div className= "mt-auto w-full flex flex-row justify-center">
-          {(props.type === 'new')? 
-            (<Button className="w-2/5 mx-1 h-6" onClick={Add}> 
-              Add
-            </Button>)
-            : 
-            (<Button className="w-2/5 mx-1 h-6" onClick={Save}>
-              Save
-            </Button>)}
-          <Button className="w-2/5 mx-1 h-6" onClick={Cancel}>
-            Cancel
-          </Button>
-          {props.type === 'edit' && 
-            <Button className="w-2/5 mx-1 h-6" onClick={Delete}>
-              <InlineIcon icon = {binSolid} style={{ fontSize: 'inherit' }} />
-            </Button>
-          }
-        </div>
-      </div>
-      <div className = "flex flex-col items-center w-3/5 my-4">
-        <div className="w-full mt-auto">
-          <ImageUploader 
-            city = {city}
-            setCity = {setCity}
-          />
-        </div>
-      </div>
-    </div>
+      ): (
+        <Loading />
+      )}
+    </>
   );
 }
