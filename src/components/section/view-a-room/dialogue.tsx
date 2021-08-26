@@ -28,7 +28,7 @@ export default function Dialogue(props: Props): JSX.Element {
 
   return (
     <div className="border rounded-md w-full flex flex-col items-center px-2 ml-1.5">
-      <div className="w-full flex justify-center my-1 font-semibold hover:text-brown-500">
+      <div className="w-full flex justify-center my-1 font-semibold hover:text-gray-600">
         <Link className="cursor-pointer" to={SITE_PAGES.VIEW_A_HOST.path + `/${props.hostdetail._id}`}>
           {props.hostdetail._id}
         </Link>
