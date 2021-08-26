@@ -55,7 +55,7 @@ export default function ViewARoom(): JSX.Element{
                 <ImageSlider
                   limit={3}
                   images={roomDetails?.photos.map((photo) => {
-                    return { ...photo, path: BASE + photo.path };
+                    return { ...photo, path: photo.path };
                   })}
                 />
               ) : (

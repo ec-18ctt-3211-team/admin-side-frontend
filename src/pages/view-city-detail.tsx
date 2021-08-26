@@ -37,8 +37,9 @@ export default function ViewCityDetails(): JSX.Element{
         });
       }
     }
-    catch {
+    catch (error: any){
       window.alert('Error');
+      console.log(error.response.message);
     }
     finally{
       setLoading(false);
