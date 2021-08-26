@@ -14,12 +14,14 @@ export interface IOrder {
   host_id: string;
   customer_name: string;
   customer_phone: string;
+  customer_id: string;
   email: string;
   num_adult: number;
   num_kid: number;
   created_at: string;
   day_start: string;
   day_end: string;
+  price?: number;
   __v: number;
 }
 export const DefaultOrder: IOrder = {
@@ -30,11 +32,13 @@ export const DefaultOrder: IOrder = {
   room_id : '',
   customer_name : '',
   customer_phone : '',
+  customer_id: '',
   email : '',
   num_adult : 0,
   num_kid : 0,
   created_at : '',
   day_start : '',
   day_end : '',
+  price: 0,
   __v: 0,
 };
