@@ -39,6 +39,8 @@ export default function AdminLogin(){
       console.log(response);
       if (response.data.valid) {
         localStorage.setItem('userID', response.data.userId);
+        localStorage.setItem('auth-token', response.headers['auth-token']);
+        
         setUserInfo({
           ...userInfo,
           userID: response.data.userID,
