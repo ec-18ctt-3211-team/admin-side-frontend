@@ -24,6 +24,9 @@ export default function Sidebar(): JSX.Element {
     localStorage.removeItem('userID');
     localStorage.removeItem('username');
     localStorage.removeItem('userImg');
+    localStorage.removeItem('auth-token');
+    localStorage.removeItem('__paypal_storage__');
+    localStorage.removeItem('__belter_experiment_storage__');
     history.push(SITE_PAGES.ADMIN_LOG_IN.path);
   }
   return (
