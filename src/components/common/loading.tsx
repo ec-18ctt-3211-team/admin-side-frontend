@@ -1,5 +1,5 @@
-import  Popup from './popup';
+import Popup from './popup';
 
 export default function Loading(): JSX.Element {
-  return <Popup>loading...</Popup>;
+  return <Popup>Please wait a sec, we are loading...</Popup>;
 }

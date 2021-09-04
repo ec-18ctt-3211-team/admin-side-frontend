@@ -12,18 +12,17 @@ import Loading from 'components/common/loading';
 interface Props {
   type: 'new' | 'edit';
   id?: string;
-  city?: ICity;
+  data?: ICity;
 }
 function refreshPage() {
   location.reload();
 }
 
-export default function CityInfor(props: Props): JSX.Element {
-  let initCity: ICity = { titles: '', id: '', room_id: '', is_pinned: false };
-  if (props.city) initCity = props.city;
+const initCity: ICity = { titles: '', id: '', room_id: '', is_pinned: false };
 
+export default function CityInfor(props: Props): JSX.Element {
   const history = useHistory();
-  const [city, setCity] = useState<ICity>(initCity);
+  const [city, setCity] = useState<ICity>(props.data ? props.data : initCity);
   const [loading, setLoading] = useState(false);
 
   async function Add() {
@@ -107,10 +106,6 @@ export default function CityInfor(props: Props): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    setCity(initCity);
-  }, [props]);
-
   return (
     <>
       {!loading ? (
@@ -122,7 +117,7 @@ export default function CityInfor(props: Props): JSX.Element {
                 type="text"
                 classname="py-4 px-2 mr-4 h-3/5"
                 label={{ value: 'ID', position: 'top' }}
-                value={initCity.id}
+                value={city.id}
                 onChange={(e) => {
                   setCity({ ...city, id: e.target.value });
                 }}
@@ -133,7 +128,7 @@ export default function CityInfor(props: Props): JSX.Element {
                 type="text"
                 classname="py-4 px-2 mr-4 h-3/5"
                 label={{ value: 'Title', position: 'top' }}
-                value={initCity?.titles}
+                value={city.titles}
                 onChange={(e) => {
                   setCity({ ...city, titles: e.target.value });
                 }}
@@ -170,7 +165,7 @@ export default function CityInfor(props: Props): JSX.Element {
           </div>
           <div className="flex items-center w-3/5 bg-white rounded-xl p-2">
             <ImageUploader
-              image={city.thumbnail}
+              image={{ path: city.thumbnail }}
               setImage={(value) => setCity({ ...city, thumbnail: value })}
             />
           </div>

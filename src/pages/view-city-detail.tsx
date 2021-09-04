@@ -10,25 +10,29 @@ import Loading from 'components/common/loading';
 
 const newCity = 'new';
 
-export default function ViewCityDetails(): JSX.Element{
+export default function ViewCityDetails(): JSX.Element {
   const path = SITE_PAGES.VIEW_CITY_LIST.path;
   const location = useLocation();
   const state = location.pathname.substring(path.length + 1);
   const [loading, setLoading] = useState(false);
 
-  const [city, setCity] = useState<ICity>({ titles: '' , id: '', room_id: '',is_pinned: false });
+  const [city, setCity] = useState<ICity>({
+    titles: '',
+    id: '',
+    room_id: '',
+    is_pinned: false,
+  });
   async function fetchCity() {
-    if(state === newCity) return;
-    try{
+    if (state === newCity) return;
+    try {
       setLoading(true);
-      const response = await GET(
-        ENDPOINT_URL.GET.getCityByID(state),
-      );
-      if(response.status == 200){
-        if(response.data.valid === false ) {
+      const response = await GET(ENDPOINT_URL.GET.getCityByID(state));
+      if (response.status == 200) {
+        if (response.data.valid === false) {
           return;
         }
-        setCity({ ...city,
+        setCity({
+          ...city,
           titles: response.data.city[0].titles,
           id: response.data.city[0].id,
           thumbnail: response.data.city[0].thumnail,
@@ -36,12 +40,10 @@ export default function ViewCityDetails(): JSX.Element{
           room_id: response.data.city[0].room_id,
         });
       }
-    }
-    catch (error: any){
+    } catch (error: any) {
       window.alert('Error');
       //console.log(error.response.message);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   }
@@ -49,17 +51,19 @@ export default function ViewCityDetails(): JSX.Element{
     fetchCity();
   }, []);
 
-  return(
+  return (
     <Layout>
       {!loading ? (
-        <div className = "bg-white rounded-lg h-full">
-          {(state === newCity) ? 
-            <CityInfor type='new'/> :  
-            <CityInfor type='edit' id={ state } city={city}/>}
+        <div className="bg-white rounded-lg h-full">
+          {state === newCity ? (
+            <CityInfor type="new" />
+          ) : (
+            <CityInfor type="edit" id={state} data={city} />
+          )}
         </div>
-      ):(
-        <Loading/>
+      ) : (
+        <Loading />
       )}
-    </Layout>  
+    </Layout>
   );
 }
