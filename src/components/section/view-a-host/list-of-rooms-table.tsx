@@ -6,12 +6,12 @@ import './list-of-rooms-table.css';
 import { IRoomDetail } from 'interfaces/room.interface';
 import { Link } from 'react-router-dom';
 
-interface IRoom{
+interface IRoom {
   ID?: string;
-  Name? : string;
+  Name?: string;
 }
 
-interface IListofRoom{
+interface IListofRoom {
   list: IRoomDetail[];
 }
 
@@ -24,40 +24,46 @@ interface Props {
 
 const items_per_pages = 6;
 
-export default function HostListofRoom(props: IListofRoom) :JSX.Element{ 
+export default function HostListofRoom(props: IListofRoom): JSX.Element {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState<number>(10);
 
   useEffect(() => {
-    props.list === undefined ? setMaxPage(1)
+    props.list === undefined
+      ? setMaxPage(1)
       : setMaxPage(Math.ceil(props.list.length / items_per_pages));
   }, [props.list]);
 
-  const list : IRoom[] = [];
-  props.list.map((item, index)=>{
+  const list: IRoom[] = [];
+  props.list.map((item, index) => {
     list.push({ ID: item._id, Name: item.title });
   });
 
-  const indexofLastRoom = (currentPage + 1)*items_per_pages;
+  const indexofLastRoom = (currentPage + 1) * items_per_pages;
   const indexofFirstRoom = indexofLastRoom - items_per_pages;
 
-  let currentRoom : IRoom[] = ([{ ID: '#100', Name: 'LUXURY HOMESTAY' }]);
-  if(list) currentRoom = list.slice(indexofFirstRoom, indexofLastRoom);
-  
-  return(
-    <div className='h-full'>
-      <div className='h-full'>
-        <div className="uppercase font-bold text-xl px-6 pt-2">
-          List of Rooms
-        </div>
-        <div>
-          <ListOfRoomsTable 
-            list_of_rooms = {currentRoom}
-            currentPage = {currentPage}
-            setCurrentPage = {setCurrentPage}
-            maxPage = {maxPage}
-          />
-        </div>
+  let currentRoom: IRoom[] = [{ ID: '#100', Name: 'LUXURY HOMESTAY' }];
+  if (list) currentRoom = list.slice(indexofFirstRoom, indexofLastRoom);
+
+  return (
+    <div className="w-full flex flex-col h-[80%]">
+      <div className="uppercase font-bold text-xl px-6 pt-4 text-center">
+        List of Rooms
+      </div>
+      <div>
+        <ListOfRoomsTable
+          list_of_rooms={currentRoom}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
+        />
+      </div>
+      <div className="mt-auto">
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          maxPage={maxPage}
+        />
       </div>
     </div>
   );
@@ -81,9 +87,14 @@ function ListOfRoomsTable(props: Props) {
                   : 'border-b'
               }
             >
-              <td className="border-r py-6 w-12">{index + 1 + props.currentPage * items_per_pages}</td>
+              <td className="border-r border-brown-600 py-6">
+                {index + 1 + props.currentPage * items_per_pages}
+              </td>
               <td className="py-6">
-                <Link className="cursor-pointer" to={SITE_PAGES.VIEW_A_ROOM.path + `/${item.ID}`}>
+                <Link
+                  className="cursor-pointer"
+                  to={SITE_PAGES.VIEW_A_ROOM.path + `/${item.ID}`}
+                >
                   {item.Name}
                 </Link>
               </td>
@@ -99,24 +110,16 @@ function ListOfRoomsTable(props: Props) {
   }, [props.list_of_rooms]);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg w-full flex flex-col items-center p-6">
+    <div className="bg-white rounded-xl w-full flex flex-col items-center p-6">
       <table className="table-auto w-full">
         <thead>
-          <tr className="border-b uppercase">
-            <th className="border-r py-6">No</th>
+          <tr className="border-b border-brown-600 uppercase bg-brown-100 text-brown-500">
+            <th className="border-r border-brown-600 py-6">No</th>
             <th className="py-6">Name</th>
           </tr>
         </thead>
         {render}
       </table>
-
-      <div className="mt-auto">
-        <Pagination
-          currentPage={props.currentPage}
-          setCurrentPage={props.setCurrentPage}
-          maxPage={props.maxPage}
-        />
-      </div>
     </div>
   );
 }

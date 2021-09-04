@@ -16,23 +16,26 @@ import edit1Solid from '@iconify/icons-teenyicons/edit-1-solid';
 import logoutOutline from '@iconify/icons-teenyicons/logout-outline';
 import binSolid from '@iconify/icons-teenyicons/bin-solid';
 
-export {
-  Icon,
-  InlineIcon,
-  leftSmallOutline,
-  moreHorizontalSolid,
-  searchOutline,
-  filterOutline,
-  downSmallOutline,
-  envelopeOutline,
-  userSolid,
-  phoneOutline,
-  passwordOutline,
-  addSmallOutline,
-  minusSmallOutline,
-  contactSolid,
-  idSolid,
-  edit1Solid,
-  logoutOutline,
-  binSolid,
+const Outline = {
+  left: leftSmallOutline,
+  search: searchOutline,
+  filter: filterOutline,
+  down: downSmallOutline,
+  envelope: envelopeOutline,
+  phone: phoneOutline,
+  password: passwordOutline,
+  add: addSmallOutline,
+  minus: minusSmallOutline,
+  logout: logoutOutline,
 };
+
+const Solid = {
+  moreHorizontal: moreHorizontalSolid,
+  user: userSolid,
+  contact: contactSolid,
+  id: idSolid,
+  edit: edit1Solid,
+  bin: binSolid,
+};
+
+export { Icon, InlineIcon, Outline, Solid };

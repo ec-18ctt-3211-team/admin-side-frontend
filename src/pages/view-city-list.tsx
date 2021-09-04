@@ -8,9 +8,9 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { ICity } from 'interfaces/city.interface';
 import Loading from 'components/common/loading';
 
-const items_per_pages = 6 ;
+const items_per_pages = 6;
 
-export default function ViewCityList(): JSX.Element{
+export default function ViewCityList(): JSX.Element {
   const history = useHistory();
   const [city, setCity] = useState<ICity[]>([]);
 
@@ -19,26 +19,22 @@ export default function ViewCityList(): JSX.Element{
   const [loading, setLoading] = useState(false);
 
   async function fetchCity() {
-    try{
+    try {
       setLoading(true);
-      const response = await GET(
-        ENDPOINT_URL.GET.getAllCity(),
-      );
-      if(response.status == 200){
-        if(response.data.valid === false) {
+      const response = await GET(ENDPOINT_URL.GET.getAllCity());
+      if (response.status == 200) {
+        if (response.data.valid === false) {
           return;
         }
         setCity(response.data.cities);
-        if(city === undefined){
+        if (city === undefined) {
           setCity([{ id: '', titles: '', room_id: '' }]);
         }
       }
-    }
-    catch {
+    } catch {
       //console.log('False');
       setCity([{ id: '', titles: '', room_id: '' }]);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   }
@@ -48,32 +44,36 @@ export default function ViewCityList(): JSX.Element{
   }, [currentPage]);
 
   useEffect(() => {
-    if(city === undefined) setMaxPage(1);
-    else 
-      setMaxPage(Math.ceil(city.length/items_per_pages));
+    if (city === undefined) setMaxPage(1);
+    else setMaxPage(Math.ceil(city.length / items_per_pages));
   }, [city]);
 
-  const indexofLastCity = (currentPage + 1)*items_per_pages;
+  const indexofLastCity = (currentPage + 1) * items_per_pages;
   const indexofFirstCity = indexofLastCity - items_per_pages;
   const currentCity = city.slice(indexofFirstCity, indexofLastCity);
-  
-  return(
+
+  return (
     <Layout>
-      <div className = "bg-white rounded-lg border-b p-2">
-        <div className='w-[232px] h-8 sm:ml-auto'>
-          <Button onClick={()=>{history.push({
-            pathname : SITE_PAGES.VIEW_CITY_LIST.path+'/new',
-            state: {
-              update: true,
-            }
-          });
-          }}>New City</Button>
+      <div className="bg-white rounded-lg border-b p-6 flex flex-col min-h-full">
+        <div className="w-[232px] h-8 sm:ml-auto">
+          <Button
+            onClick={() => {
+              history.push({
+                pathname: SITE_PAGES.VIEW_CITY_LIST.path + '/new',
+                state: {
+                  update: true,
+                },
+              });
+            }}
+          >
+            New City
+          </Button>
         </div>
         <div>
           {!loading ? (
-            <CityList cityList={currentCity} currentPage={currentPage}/>
-          ): (
-            <div className='h-80'>
+            <CityList cityList={currentCity} currentPage={currentPage} />
+          ) : (
+            <div className="h-80">
               <Loading />
             </div>
           )}
@@ -86,6 +86,6 @@ export default function ViewCityList(): JSX.Element{
           />
         </div>
       </div>
-    </Layout> 
+    </Layout>
   );
 }

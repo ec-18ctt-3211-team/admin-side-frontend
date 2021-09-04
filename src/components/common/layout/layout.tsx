@@ -1,4 +1,4 @@
-import Footer from './footer';
+import Navbar from './navbar';
 import Sidebar from './sidebar';
 
 type Props = {
@@ -8,24 +8,14 @@ type Props = {
 
 export default function Layout(props: Props): JSX.Element {
   return (
-    <div className="h-full min-h-screen w-full flex flex-col">
-      <div className="flex bg-gray-200 h-auto w-full flex-1">
+    <div className="min-h-screen w-full flex flex-col md:flex-row bg-gray-200">
+      <div className="hidden md:flex">
         <Sidebar />
-        <div className="p-8 w-[calc(100%-232px)] h-full">{props.children}</div>
       </div>
-      <div className="mt-auto">
-        <Footer />
+      <div className="md:hidden">
+        <Navbar />
       </div>
+      <div className="p-8 w-full md:w-[calc(100%-232px)]">{props.children}</div>
     </div>
   );
 }
-
-/*
-    <div className="h-auto min-h-full flex flex-col bg-gray-200">
-      <Navbar/>
-      <div className="flex h-full w-full">
-        <Sidebar />
-        <div className="p-4 w-[calc(100%-232px)] h-full">{props.children}</div>
-      </div>
-      <Footer/>
-    </div>*/

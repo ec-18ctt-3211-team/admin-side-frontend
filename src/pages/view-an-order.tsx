@@ -24,8 +24,7 @@ export default function ViewAnOrder(): JSX.Element {
       }
     } catch (error) {
       //console.log(error);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }
@@ -37,12 +36,12 @@ export default function ViewAnOrder(): JSX.Element {
   return (
     <Layout>
       {!loading ? (
-        <div className='bg-white rounded-lg flex flex-col'>
-          <div className='border-b px-4 py-2'>
-            <p className='font-bold text-lg'>ID @{order?._id}</p>
+        <div className="bg-white rounded-lg flex flex-col h-full">
+          <div className="border-b px-4 py-2">
+            <p className="font-bold text-lg">ID @{order?._id}</p>
           </div>
-          {order._id ? 
-            (<div className="p-8 bg-white flex rounded-lg">
+          {order._id ? (
+            <div className="p-8 bg-white flex rounded-lg">
               <div className="w-1/2 px-4">
                 <div className="uppercase font-bold text-xl text-brown-500">
                   customer information
@@ -51,8 +50,12 @@ export default function ViewAnOrder(): JSX.Element {
                   Customer ID:
                 </div>
                 <div className="px-8 border-b text-center">
-                  <Link className="cursor-pointer hover:text-gray-600" 
-                    to={SITE_PAGES.VIEW_A_CUSTOMER.path + `/${order.customer_id}`}>
+                  <Link
+                    className="cursor-pointer hover:text-gray-600"
+                    to={
+                      SITE_PAGES.VIEW_A_CUSTOMER.path + `/${order.customer_id}`
+                    }
+                  >
                     {order.customer_id}
                   </Link>
                 </div>
@@ -75,7 +78,9 @@ export default function ViewAnOrder(): JSX.Element {
                 <div className="uppercase font-bold text-base p-4 text-brown-400">
                   payment method:
                 </div>
-                <div className="px-8 border-b uppercase text-center">Paypal</div>
+                <div className="px-8 border-b uppercase text-center">
+                  Paypal
+                </div>
               </div>
               <div className="w-1/2 px-4">
                 <div className="uppercase font-bold text-xl text-brown-500">
@@ -85,8 +90,10 @@ export default function ViewAnOrder(): JSX.Element {
                   Room ID:
                 </div>
                 <div className="px-8 border-b text-center">
-                  <Link className="cursor-pointer hover:text-gray-600" 
-                    to={SITE_PAGES.VIEW_A_ROOM.path + `/${order.room_id}`}>
+                  <Link
+                    className="cursor-pointer hover:text-gray-600"
+                    to={SITE_PAGES.VIEW_A_ROOM.path + `/${order.room_id}`}
+                  >
                     {order.room_id}
                   </Link>
                 </div>
@@ -104,7 +111,9 @@ export default function ViewAnOrder(): JSX.Element {
                     from
                   </div>
                   <div className="px-4 border-b">{order.day_start}</div>
-                  <div className="px-4 uppercase font-bold text-brown-400">to</div>
+                  <div className="px-4 uppercase font-bold text-brown-400">
+                    to
+                  </div>
                   <div className="px-4 border-b">{order.day_end}</div>
                 </div>
                 <div className="flex p-4">
@@ -114,13 +123,10 @@ export default function ViewAnOrder(): JSX.Element {
                   <div className="px-4 border-b">{order.price}</div>
                 </div>
               </div>
-            </div>):
-            (
-              <div className='h-80 flex justify-center items-center'>
-                No data
-              </div>
-            )
-          }
+            </div>
+          ) : (
+            <div className="h-80 flex justify-center items-center">No data</div>
+          )}
         </div>
       ) : (
         <Loading />

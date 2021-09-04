@@ -1,70 +1,68 @@
-import { ICity } from 'interfaces/city.interface';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-interface Props{
-  city: ICity;
-  setCity: (city: ICity) => void;
-  file?: any;
-  setFile?: (file: any) => void;
-  img?: string;
+interface Props {
+  image: any;
+  setImage: (image: any) => void;
+  disable?: boolean;
 }
 
-export default function ImageUploader(props: Props): JSX.Element{
-
+export default function UploadImage(props: Props): JSX.Element {
   const [preview, setPreview] = useState<string | null>(
-    props.city.thumbnail? props.city.thumbnail: '',
+    props.image ? props.image.path : '',
   );
   const [message, setMessage] = useState('Choose image to Upload');
   const uploadImage = useRef<HTMLInputElement>(null);
 
-  function fileSelectedHandler() {
+  function uploadAnImage() {
     const uploaded = uploadImage.current;
-    
     if (uploaded?.files) {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
           setPreview(reader.result as string);
-          props.setCity({ ...props.city, thumbnail: reader.result as string });
+          props.setImage(reader.result as string);
         }
       };
-      if (uploaded.files[0] && uploaded.files[0].size <= 1024 * 1024) {
-        reader.readAsDataURL(uploaded.files[0]);
-      } else {
-        setMessage('Image must be under 1MB');
-        setPreview(null);
-        props.setCity({ ...props.city, thumbnail: '' });
+      if (uploaded.files[0]) {
+        if (uploaded.files[0].size <= 1024 * 1024)
+          reader.readAsDataURL(uploaded.files[0]);
+        else {
+          setMessage('Please input image that under 1MB');
+          setPreview(null);
+          props.setImage('');
+        }
       }
     }
   }
-  console.log(props.file);
 
-  return(
-    <div className='w-full flex flex-col items-center'>
-      <div className='my-4 mx-1'>
-        {preview ? (
+  return (
+    <div className="w-full h-full">
+      <input type="file" accept=".png,.jpg" ref={uploadImage} hidden />
+      <div
+        className={[
+          'border border-gray-200 rounded-6 select-none',
+          'p-4 w-full h-full flex flex-col justify-center items-center',
+          'border-dashed border-gray-200 text-gray-500',
+          props.disable ? 'cursor-default' : 'cursor-pointer',
+        ].join(' ')}
+        onClick={() => {
+          if (props.disable) {
+            setMessage('Please fill in the previous image before continue');
+            return;
+          }
+          uploadImage.current?.click();
+          uploadImage.current?.addEventListener('change', uploadAnImage);
+        }}
+      >
+        {!preview ? (
+          <div className="py-8 text-sm text-center">{message}</div>
+        ) : (
           <img
-            src = {preview}
-            alt = {'Should be an image'}
-            className = 'h-80 w-full shadow object-cover'
+            src={preview}
+            alt="upload"
+            className="w-full h-full object-contain"
           />
-        ):(
-          <div className = 'h-80 w-full text-brown-100 flex justify-center items-center'>
-            <div>
-              {message}
-            </div>
-          </div>
         )}
-      </div>
-      <div className='mt-auto w-20 border'>
-        <input 
-          type='file' 
-          accept="image/png, image/jpeg" 
-          ref={uploadImage}
-          onClick={() => {
-            uploadImage.current?.addEventListener('change', fileSelectedHandler);
-          }}
-        />
       </div>
     </div>
   );

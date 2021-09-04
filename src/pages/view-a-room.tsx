@@ -1,88 +1,117 @@
-import { ImageSlider, DivPx } from 'components/common';
-import { RoomDetail, Dialogue } from 'components/section/view-a-room';
-//import { ROOMS_DATA } from 'constants/rooms-data.const';
-import { Layout } from 'components/common';
-import { GET, BASE } from 'utils/fetcher.utils';
+import { Layout, Button, Input } from 'components/common';
+import { Icon, Solid } from 'utils/icon.utils';
+import { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
+import { GET } from 'utils/fetcher.utils';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { IRoomDetail } from 'interfaces/room.interface';
-import { IHostDetail } from 'interfaces/host.interface';
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import UploadImage from 'components/common/image-uploader/image-uploader';
+import { IImageTag } from 'interfaces/image-tag.interface';
 import Loading from 'components/common/loading';
-import { DEFAULT_ROOMS, ROOMS } from 'constants/images.const';
 
-export default function ViewARoom(): JSX.Element{
+export default function ViewARoom(): JSX.Element {
   const location = useLocation();
-  const path = location.pathname.split('/');
-  const keyword = path[path.length - 1];
-
-  const [loading, setLoading] = useState(false);
   const [roomDetails, setRoomDetails] = useState<IRoomDetail>();
-  const [hostDetails, setHostDetails] = useState<IHostDetail>();
+  const [loading, setLoading] = useState(false);
 
   async function fetchRoom() {
-    try{
+    const path = location.pathname.split('/');
+    const roomID = path[path.length - 1];
+    try {
       setLoading(true);
-      const response = await GET(ENDPOINT_URL.GET.getRoomsByID(keyword));
-      if(response.status == 200){
+      const response = await GET(ENDPOINT_URL.GET.getRoomsByID(roomID));
+      if (response.data.valid) {
         setRoomDetails(response.data.room);
-        setHostDetails({
-          _id: response.data.room.host_id,
-        });
       }
-    }
-    catch{
-      window.alert('Something wrong');
-    }
-    finally{
+    } catch (error) {
+      alert('Unexpected error, please try again!');
+      console.log(error);
+    } finally {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     fetchRoom();
   }, []);
 
-  return(
+  return (
     <Layout>
-      {!loading ? (<div className = 'bg-white rounded-lg'>
-        <div className='border-b px-4 py-2'>
-          <p className='font-bold text-lg'>ID @{roomDetails?._id}</p>
-        </div>
-        {roomDetails && roomDetails.photos && hostDetails ?(
-          <div className='h-full'>
-            <div className='py-4'>
-              {roomDetails?.photos.length > 0 ? (
-                <ImageSlider
-                  limit={3}
-                  images={roomDetails?.photos.map((photo) => {
-                    return { ...photo, path: photo.path };
-                  })}
-                />
-              ) : (
-                <ImageSlider
-                  limit={3}
-                  images={DEFAULT_ROOMS.map((photo) => {
-                    return { ...photo, path: photo.path };
-                  })}
-                />
-              )}
-              <DivPx size={48} />
+      {roomDetails && !loading ? (
+        <div className="flex h-full w-full">
+          <div className="h-full w-2/5 p-4 bg-white flex flex-col rounded-lg">
+            <div className="my-4 mx-2 text-center font-bold uppercase text-lg">
+              {roomDetails.title}
             </div>
-            <div className="w-full flex lg:flex-row h-full">       
-              <div className="w-2/3 lg:w-2/5">
-                <Dialogue detail={roomDetails} hostdetail= {hostDetails} />
-              </div>
-              <div className="w-11/12 lg:w-3/5">
-                <RoomDetail detail={roomDetails}  />
-              </div>
-            </div> 
+            <div className="px-4 py-2 text-center">
+              {roomDetails.max_guest} guest(s)
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>Normal price:</strong>
+              <div>{roomDetails.normal_price}$</div>
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>Weekend price:</strong>
+              <div>{roomDetails.weekend_price}$</div>
+            </div>
+            <div className="px-4 py-2 font-bold uppercase">Address</div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>Number:</strong>
+              <div>{roomDetails.address.number}</div>
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>Street:</strong>
+              <div>{roomDetails.address.street}</div>
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>Ward:</strong>
+              <div>{roomDetails.address.ward}</div>
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>District:</strong>
+              <div>{roomDetails.address.district}</div>
+            </div>
+            <div className="px-4 py-2 flex justify-between">
+              <strong>City:</strong>
+              <div>{roomDetails.address.city}</div>
+            </div>
+            <div className="h-full w-full border rounded p-2 my-4">
+              {roomDetails.description}
+            </div>
           </div>
-        ): (
-          <div>No result</div>
-        )}  
-      </div>
-      ):(
-        <Loading/>
+          <div className="h-full w-full ml-4 p-4 bg-white flex rounded-lg flex-wrap">
+            <div className="w-1/2 h-1/2 p-2">
+              <UploadImage
+                image={roomDetails.photos ? roomDetails.photos[0] : null}
+                setImage={() => console.log('Disabled image')}
+                disable
+              />
+            </div>
+            <div className="w-1/2 h-1/2 p-2">
+              <UploadImage
+                image={roomDetails.photos ? roomDetails.photos[1] : null}
+                setImage={() => console.log('Disabled image')}
+                disable
+              />
+            </div>
+            <div className="w-1/2 h-1/2 p-2">
+              <UploadImage
+                image={roomDetails.photos ? roomDetails.photos[2] : null}
+                setImage={() => console.log('Disabled image')}
+                disable
+              />
+            </div>
+            <div className="w-1/2 h-1/2 p-2">
+              <UploadImage
+                image={roomDetails.photos ? roomDetails.photos[3] : null}
+                setImage={() => console.log('Disabled image')}
+                disable
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Loading />
       )}
     </Layout>
   );

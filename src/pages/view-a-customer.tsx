@@ -7,6 +7,7 @@ import { ENDPOINT_URL } from 'constants/api.const';
 import { IUserInfo } from 'interfaces/user.interface';
 import { IOrder, DefaultOrder } from 'interfaces/order.interface';
 import { useLocation } from 'react-router-dom';
+import Loading from 'components/common/loading';
 
 export const OrderStatus = {
   waiting: { label: 'Waiting', color: 'text-gray-400' },
@@ -21,74 +22,100 @@ export default function ViewACustomer(): JSX.Element {
   const keyword = path[path.length - 1];
 
   const [found, SetFound] = useState(false);
-  const [userInfo, setUserInfo] = useState<IUserInfo>({ phone_number: '', username: '', userID: '', email: '' });
-  const [bookingHistory, setBookingHistory] = useState<IOrder[]>(
-    [DefaultOrder]);
+  const [userInfo, setUserInfo] = useState<IUserInfo>({
+    phone_number: '',
+    username: '',
+    userID: '',
+    email: '',
+  });
+  const [bookingHistory, setBookingHistory] = useState<IOrder[]>([
+    DefaultOrder,
+  ]);
+  const [loading, setLoading] = useState(true);
 
-  async function getUserData(){
-    const response = await GET(
-      ENDPOINT_URL.GET.getCustomerByID(keyword),
-    );
+  async function getUserData() {
+    try {
+      setLoading(true);
+      const response = await GET(ENDPOINT_URL.GET.getCustomerByID(keyword));
 
-    if(response.status == 200){
-      if(response.data.valid === false || response.data.customer === null) {
-        return;
+      if (response.status == 200) {
+        if (response.data.valid === false || response.data.customer === null) {
+          return;
+        }
+        SetFound(true);
+        setUserInfo({
+          ...userInfo,
+          userID: response.data.customer._id,
+          username: response.data.customer.name,
+          phone_number: response.data.customer.phone,
+          email: response.data.customer.email,
+        });
       }
-      SetFound(true);
-      setUserInfo({ ...userInfo,
-        userID: response.data.customer._id,
-        username: response.data.customer.name,
-        phone_number: response.data.customer.phone,
-        email: response.data.customer.email,
-      });
+    } catch (error) {
+      alert('Unexpected error, please try again!');
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
-  async function getUserBooking(userID: string){
-    if(!userID) return;
-    const response = await GET(
-      ENDPOINT_URL.GET.getOrderByCustomerID(userID),
-    );
+  async function getUserBooking(userID: string) {
+    if (!userID) return;
+    try {
+      setLoading(true);
+      const response = await GET(ENDPOINT_URL.GET.getOrderByCustomerID(userID));
 
-    if(response.status == 200){
-      if(response.data.valid === false) {
-        return;
+      if (response.status == 200) {
+        if (response.data.valid === false) {
+          return;
+        }
+        setBookingHistory(response.data.orders);
       }
-      setBookingHistory(response.data.orders);
+    } catch (error) {
+      alert('Unexpected error, please try again!');
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getUserData();
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     getUserBooking(userInfo.userID);
   }, [userInfo.userID]);
-  
+
   return (
     <>
-      {found ? 
-        (<Layout>
-          <div className = "bg-white rounded-lg">
-            <div className="border-b px-4 py-2">
-              <p className="font-bold text-lg">ID @{userInfo?.userID}</p>
-            </div>
-            <div className="flex w-full h-full">
-              <div className="w-1\/3 lg:w-2/5 h-full">
-                <UserInfo user={userInfo}></UserInfo>
-              </div>
-              <div className="w-2\/5 lg:w-3/5 h-full">
-                <CustomerBookingTable list={bookingHistory}/>
-              </div>
-            </div>
-          </div>      
-        </Layout>
-        ):(
-          <div className='h-full flex border'>
+      {!loading ? (
+        <>
+          {found ? (
             <Layout>
-              <div className = "h-full bg-white rounded-lg">No result</div>
+              <div className="bg-white h-full rounded-xl">
+                <p className="font-bold text-lg border-b px-8 py-4">
+                  ID @{userInfo?.userID}
+                </p>
+                <div className="flex w-full h-full py-4">
+                  <div className="w-1/3">
+                    <UserInfo user={userInfo} />
+                  </div>
+                  <div className="w-2/3">
+                    <CustomerBookingTable list={bookingHistory} />
+                  </div>
+                </div>
+              </div>
             </Layout>
-          </div>
-        )}
+          ) : (
+            <div className="h-full flex border">
+              <Layout>
+                <div className="h-full bg-white rounded-lg">No result</div>
+              </Layout>
+            </div>
+          )}
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }

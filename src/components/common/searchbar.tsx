@@ -1,9 +1,9 @@
 import { Input } from 'components/common';
-import { InlineIcon, searchOutline } from 'utils/icon.utils';
+import { InlineIcon, Outline } from 'utils/icon.utils';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-interface Props{
+interface Props {
   path: string;
   type?: string;
 }
@@ -12,14 +12,14 @@ export default function Searchbar(props: Props): JSX.Element {
   const history = useHistory();
   const [input, SetInput] = useState('');
 
-  const handleKeyPressed = (e: any) =>{
-    if(e.key == 'Enter'){
+  const handleKeyPressed = (e: any) => {
+    if (e.key == 'Enter') {
       let path = props.path;
-      path = path + `/${input.trim()}` ;
+      path = path + `/${input.trim()}`;
       history.push({
         pathname: path,
-        state: { 
-          update: true, 
+        state: {
+          update: true,
         },
       });
     }
@@ -34,12 +34,12 @@ export default function Searchbar(props: Props): JSX.Element {
         classname="shadow-md py-2 px-4"
         icon={{
           icon: (
-            <InlineIcon icon={searchOutline} style={{ fontSize: 'inherit' }} />
+            <InlineIcon icon={Outline.search} style={{ fontSize: 'inherit' }} />
           ),
           position: 'left',
         }}
-        onChange = {(e) => SetInput(e.target.value)}
-        onKeyDown = { handleKeyPressed }
+        onChange={(e) => SetInput(e.target.value)}
+        onKeyDown={handleKeyPressed}
       />
     </div>
   );

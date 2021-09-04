@@ -1,4 +1,4 @@
-import { Icon, addSmallOutline, minusSmallOutline } from 'utils/icon.utils';
+import { Icon, Outline } from 'utils/icon.utils';
 
 interface Props {
   totalAdults: number;
@@ -19,7 +19,7 @@ export default function InputGuests(props: Props): JSX.Element {
           ].join(' ')}
           onClick={() => totalAdults > 0 && setTotalAdults(totalAdults - 1)}
         >
-          <Icon icon={minusSmallOutline} />
+          <Icon icon={Outline.minus} />
         </div>
         <div>{totalAdults} Adults</div>
         <div
@@ -29,7 +29,7 @@ export default function InputGuests(props: Props): JSX.Element {
           ].join(' ')}
           onClick={() => setTotalAdults(totalAdults + 1)}
         >
-          <Icon icon={addSmallOutline} />
+          <Icon icon={Outline.add} />
         </div>
       </div>
       <div className="flex w-2/5 justify-around">
@@ -40,7 +40,7 @@ export default function InputGuests(props: Props): JSX.Element {
           ].join(' ')}
           onClick={() => totalKids > 0 && setTotalKids(totalKids - 1)}
         >
-          <Icon icon={minusSmallOutline} />
+          <Icon icon={Outline.minus} />
         </div>
         <div>{totalKids} Kids</div>
         <div
@@ -50,7 +50,7 @@ export default function InputGuests(props: Props): JSX.Element {
           ].join(' ')}
           onClick={() => setTotalKids(totalKids + 1)}
         >
-          <Icon icon={addSmallOutline} />
+          <Icon icon={Outline.add} />
         </div>
       </div>
     </div>
