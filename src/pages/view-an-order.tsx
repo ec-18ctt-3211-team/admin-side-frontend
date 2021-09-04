@@ -91,15 +91,6 @@ export default function ViewAnOrder(): JSX.Element {
                   </Link>
                 </div>
                 <div className="uppercase font-bold text-base px-4 pt-4 pb-2 text-brown-400">
-                  Host ID:
-                </div>
-                <div className="px-8 border-b text-center">
-                  <Link className="cursor-pointer hover:text-gray-600" 
-                    to={SITE_PAGES.VIEW_A_HOST.path + `/${order.host_id}`}>
-                    {order.host_id}
-                  </Link>
-                </div>
-                <div className="uppercase font-bold text-base px-4 pt-4 pb-2 text-brown-400">
                   number of guest:
                 </div>
                 <div className="flex p-4">
