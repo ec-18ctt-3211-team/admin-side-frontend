@@ -38,35 +38,35 @@ export default function Input(props: Props): JSX.Element {
           className={[
             'flex px-4 items-center w-full h-full',
             props.classname,
-            props.border === 'full'
-              ? 'border rounded-lg'
-              : props.border === 'line'
-                ?'border-b-2 border-gray-200' : '',
+            props.border === 'full' ? 'border rounded-lg' : '',
+            props.border === 'line' ? 'border-b-2 border-gray-200' : '',
           ].join(' ')}
         >
           {/* left icon  */}
           {props.icon?.position === 'left' && props.icon?.icon}
 
           {/* input  */}
-          {props.type != 'checkbox' ? 
+          {props.type != 'checkbox' ? (
             <input
               type={props.type}
               placeholder={props.placeholder}
-              className="w-full px-1 focus:outline-none"
+              className={[
+                'w-full px-1 focus:outline-none text-center',
+                props.disable ? 'text-gray-300' : '',
+              ].join(' ')}
               defaultValue={props.value?.toString()}
               onChange={props.onChange}
-              onKeyDown = {props.onKeyDown}
-              disabled = {props.disable}
+              onKeyDown={props.onKeyDown}
+              disabled={props.disable}
             />
-            :
+          ) : (
             <input
               type={props.type}
               checked={props.checked}
               onClick={props.onClick}
               onChange={props.onChange}
             />
-          }
-          
+          )}
 
           {/* right icon  */}
           {props.icon?.position === 'right' && props.icon?.icon}
