@@ -50,8 +50,8 @@ export default function ViewAHost(): JSX.Element {
       }
     }
     catch (error: any){
-      console.log(error.response);
-      window.alert('Error in response');
+      //console.log(error.response);
+      window.alert('No data');
     }
     finally{
       setLoading(false);

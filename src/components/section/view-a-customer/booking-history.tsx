@@ -109,7 +109,6 @@ function BookingTable(props: Props) {
     setRender(renderTable());
   }, [props.booking_history]);
 
-  console.log('Or');
   return (
     <div className="bg-white rounded-xl w-full flex flex-col items-center p-6">
       <table className="table-auto w-full">

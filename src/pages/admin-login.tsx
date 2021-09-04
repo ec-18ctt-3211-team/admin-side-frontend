@@ -2,7 +2,7 @@ import { Form }  from 'components/common/form/Form';
 import { useHistory } from 'react-router-dom';
 import { SITE_PAGES } from 'constants/pages.const';
 import { IUserInfo } from 'interfaces/user.interface';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ENDPOINT_URL } from 'constants/api.const';
 import { BASE, POST } from 'utils/fetcher.utils';
 import Loading from 'components/common/loading';
@@ -36,8 +36,9 @@ export default function AdminLogin(){
     try{
       setLoading(true);
       const response = await POST(ENDPOINT_URL.POST.login, payload);
-      console.log(response);
+      //console.log(response);
       if (response.data.valid) {
+        setLoading(false);
         localStorage.setItem('userID', response.data.userId);
         localStorage.setItem('auth-token', response.headers['auth-token']);
         
