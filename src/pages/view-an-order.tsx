@@ -23,7 +23,7 @@ export default function ViewAnOrder(): JSX.Element {
         setOrder(response.data.order);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
     finally {
       setLoading(false);

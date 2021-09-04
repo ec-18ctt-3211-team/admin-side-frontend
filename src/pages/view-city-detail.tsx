@@ -39,7 +39,7 @@ export default function ViewCityDetails(): JSX.Element{
     }
     catch (error: any){
       window.alert('Error');
-      console.log(error.response.message);
+      //console.log(error.response.message);
     }
     finally{
       setLoading(false);

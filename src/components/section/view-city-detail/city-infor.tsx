@@ -43,14 +43,14 @@ export default function CityInfor(props: Props):JSX.Element{
     try{
       setLoading(true);
       const response = await POST(ENDPOINT_URL.POST.createACity, payload);
-      console.log(response);
+      //console.log(response);
       if(response.data.valid){
         window.alert('Add city successfully');
       }
       else window.alert('Unsuccess response');
     }
     catch(error: any){
-      console.log(error.response);
+      //console.log(error.response);
       window.alert('Sth wrong');
     }
     finally{
@@ -75,14 +75,14 @@ export default function CityInfor(props: Props):JSX.Element{
     try{
       setLoading(true);
       const response = await PUT(ENDPOINT_URL.PUT.updateACity(initCity.id), payload1);
-      console.log(response);
+      //console.log(response);
       if(response.data.valid){
         window.alert('Update city successfully');
       }
       else window.alert('Unsuccess response');
     }
     catch (error: any){
-      console.log(error.response);
+      //console.log(error.response);
       window.alert('Sth wrong');
     }
     finally{
@@ -108,7 +108,7 @@ export default function CityInfor(props: Props):JSX.Element{
     }
     catch (error: any){
       window.alert('Sth wrong');
-      console.log(error.response);
+      //console.log(error.response);
     }
     finally{
       setLoading(false);

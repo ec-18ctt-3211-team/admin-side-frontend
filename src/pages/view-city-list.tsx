@@ -35,7 +35,7 @@ export default function ViewCityList(): JSX.Element{
       }
     }
     catch {
-      console.log('False');
+      //console.log('False');
       setCity([{ id: '', titles: '', room_id: '' }]);
     }
     finally{
