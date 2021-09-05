@@ -121,7 +121,7 @@ export default function CityInfor(props: Props): JSX.Element {
                 onChange={(e) => {
                   setCity({ ...city, id: e.target.value });
                 }}
-                disable
+                disable={props.type==='edit'}
               />
               <Input
                 border="full"
