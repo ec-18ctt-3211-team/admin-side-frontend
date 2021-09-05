@@ -46,7 +46,7 @@ export default function CityInfor(props: Props): JSX.Element {
         window.alert('Add city successfully');
       } else window.alert('Unsuccess response');
     } catch (error: any) {
-      //console.log(error.response);
+      console.log(error.response);
       window.alert('Sth wrong');
     } finally {
       setLoading(false);
