@@ -44,6 +44,7 @@ export default function CityInfor(props: Props): JSX.Element {
       //console.log(response);
       if (response.data.valid) {
         window.alert('Add city successfully');
+        history.push(SITE_PAGES.VIEW_CITY_LIST.path);
       } else window.alert('Unsuccess response');
     } catch (error: any) {
       console.log(error.response);
@@ -71,7 +72,7 @@ export default function CityInfor(props: Props): JSX.Element {
     try {
       setLoading(true);
       const response = await PUT(
-        ENDPOINT_URL.PUT.updateACity(initCity.id),
+        ENDPOINT_URL.PUT.updateACity(city.id),
         payload1,
       );
       //console.log(response);
@@ -121,7 +122,7 @@ export default function CityInfor(props: Props): JSX.Element {
                 onChange={(e) => {
                   setCity({ ...city, id: e.target.value });
                 }}
-                disable={props.type==='edit'}
+                disable={props.type === 'edit'}
               />
               <Input
                 border="full"

@@ -24,10 +24,10 @@ export default function UploadImage(props: Props): JSX.Element {
         }
       };
       if (uploaded.files[0]) {
-        if (uploaded.files[0].size <= 1024 * 1024)
+        if (uploaded.files[0].size <= 1024 * 1024 * 4)
           reader.readAsDataURL(uploaded.files[0]);
         else {
-          setMessage('Please input image that under 1MB');
+          setMessage('Please input image that under 4MB');
           setPreview(null);
           props.setImage('');
         }
