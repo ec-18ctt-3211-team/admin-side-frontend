@@ -30,6 +30,7 @@ export default function Sidebar(): JSX.Element {
     localStorage.removeItem('userID');
     localStorage.removeItem('username');
     localStorage.removeItem('userImg');
+    localStorage.removeItem('auth-token');
     history.push(SITE_PAGES.ADMIN_LOG_IN.path);
   }
 
